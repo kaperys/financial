@@ -10,12 +10,17 @@ use Kaperys\Financial\Message\Schema\SchemaManager;
 //$cacheManager = new CacheManager();
 //$cacheManager->generateSchemaCache(new ISO8583());
 
-/** @var \Kaperys\Financial\Message\Packer\MessagePacker $message */
-$message = (new Financial())->pack(new SchemaManager(new ISO8583()));
+/** @var ISO8583 $schemaManager */
+$schemaManager = new SchemaManager(new ISO8583());
 
-$message->schemaManager->setPan('1234567890123456');
+$schemaManager->setPan('12344567890098765');
+
+/** @var \Kaperys\Financial\Message\Packer\MessagePacker $message */
+$message = (new Financial())->pack($schemaManager);
 
 $message->setHeaderLength(2);
 $message->setMti(0200);
 
 var_dump($message);
+
+echo $message->generate();
