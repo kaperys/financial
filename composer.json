@@ -1,0 +1,21 @@
+{
+    "name": "kaperys/financial",
+    "description": "A simple PHP ISO8583 pack and unpack library",
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "authors": [
+        {
+            "name": "Mike Kaperys",
+            "email": "mike@kaperys.io"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kaperys\\Financial\\": "src/"
+        }
+    },
+    "require": {
+        "league/flysystem": "^1.0"
+    }
+}
