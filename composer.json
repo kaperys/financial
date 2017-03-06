@@ -16,7 +16,7 @@
         }
     },
     "require": {
-        "league/flysystem": "^1.0",
+        "php": "~7.0",
         "zeptech/annotations": "^1.1"
     }
 }
