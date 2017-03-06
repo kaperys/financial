@@ -1,6 +1,8 @@
 <?php
 
 namespace Kaperys\Financial\Cache;
+use Illuminate\Support\Collection;
+use Kaperys\Financial\Container\PropertyAnnotationContainer;
 
 /**
  * Class CacheFile
@@ -12,7 +14,7 @@ namespace Kaperys\Financial\Cache;
 class CacheFile
 {
 
-    /** @var array $schemaCache the cached file contents */
+    /** @var Collection $schemaCache the cached file contents */
     protected $schemaCache;
 
     /**
@@ -40,11 +42,11 @@ class CacheFile
      *
      * @param int $bit
      *
-     * @return array
+     * @return PropertyAnnotationContainer
      */
     public function getDataForBit($bit)
     {
-
+        return new PropertyAnnotationContainer($this->schemaCache->keyBy('bit')[$bit]);
     }
 
     /**
@@ -52,11 +54,11 @@ class CacheFile
      *
      * @param string $property
      *
-     * @return array
+     * @return PropertyAnnotationContainer
      */
     public function getDataForProperty($property)
     {
-
+        return new PropertyAnnotationContainer($this->schemaCache->keyBy('property')[$property]);
     }
 
     /**
@@ -64,10 +66,10 @@ class CacheFile
      *
      * @param string $schemaData the raw cache files contents
      *
-     * @return array
+     * @return Collection
      */
-    protected function parseSchemaData(string $schemaData): array
+    protected function parseSchemaData(string $schemaData): Collection
     {
-        return [];
+        return new Collection(json_decode($schemaData, true));
     }
 }

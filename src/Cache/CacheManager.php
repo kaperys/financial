@@ -3,9 +3,11 @@
 namespace Kaperys\Financial\Cache;
 
 use Kaperys\Financial\Cache\Exception\CacheConfigurationException;
+use Kaperys\Financial\Cache\Exception\CacheWriterException;
 use Kaperys\Financial\Message\Schema\MessageSchemaInterface;
 use Kaperys\Financial\Cache\Exception\CacheFileNotFoundException;
 use ReflectionClass;
+use zpt\anno\Annotations;
 
 /**
  *  Class CacheManager
@@ -20,18 +22,15 @@ class CacheManager
     // The message schema cache file name
     const CACHED_SCHEMA_FILE_NAME = 'schema.json';
 
-    // The message annotations cache file name
-    const CACHED_METHOD_MAP_FILE_NAME = 'annotations.php';
-
     /** @var array $config the cache manager default configuration */
     protected $config = [
-        'cacheDirectory' => __DIR__ . '/../../cache/',
+        'cacheDirectory' => __DIR__ . '/../../cache',
     ];
 
     /**
-     * CacheManager constructor
+     *  CacheManager constructor
      *
-     * @param array $configuration the cache manager configuration
+     *  @param array $configuration the cache manager configuration
      */
     public function __construct($configuration = [])
     {
@@ -41,47 +40,57 @@ class CacheManager
     /**
      *  Generates the schema cache
      *
-     * @param MessageSchemaInterface $schemaClass the class to generate schema for
+     *  @param MessageSchemaInterface $schemaClass the class to generate schema for
      *
-     * @return bool has the cache file been successfully generated?
+     *  @return bool has the cache file been successfully generated?
+     *
+     *  @throws CacheWriterException if the cache file cannot be written
      */
     public function generateSchemaCache(MessageSchemaInterface $schemaClass)
     {
         $reflectedSchema = new ReflectionClass($schemaClass);
 
-        $propertyAnnotations = [];
-        foreach ($reflectedSchema->getProperties() as $annotation) {
-            $propertyAnnotations[] = $annotation->getDocComment();
+        $schemaPropertyAnnotations = [];
+        foreach ($reflectedSchema->getProperties() as $property) {
+            $propertyAnnotations = (new Annotations($property))->asArray();
+            $propertyAnnotations['property'] = $property->name;
+
+            $schemaPropertyAnnotations[] = $propertyAnnotations;
         }
 
-        var_dump($propertyAnnotations);
+        $cachePath = $this->getConfiguration('cacheDirectory') . DIRECTORY_SEPARATOR .
+            $schemaClass->getName() . DIRECTORY_SEPARATOR . self::CACHED_SCHEMA_FILE_NAME;
+
+        if (!file_put_contents($cachePath, json_encode($schemaPropertyAnnotations))) {
+            throw new CacheWriterException('Cannot write cache file: ' . $cachePath);
+        }
     }
 
     /**
-     * Gets the message schema
+     *  Gets the message schema
      *
-     * @param MessageSchemaInterface $schemaClass the schema cache
+     *  @param MessageSchemaInterface $schemaClass the schema cache
      *
-     * @return CacheFile|false CacheFile, or false if not found
+     *  @return CacheFile|false CacheFile, or false if not found
      *
-     * @throws CacheFileNotFoundException if the cache file cannot be found
+     *  @throws CacheFileNotFoundException if the cache file cannot be found
      */
     public function getSchemaCache(MessageSchemaInterface $schemaClass)
     {
-        $cacheFilePath = $this->getConfiguration('cacheDirectory') .
-            $schemaClass->getName() . self::CACHED_SCHEMA_FILE_NAME;
+        $cacheFilePath = $this->getConfiguration('cacheDirectory') . DIRECTORY_SEPARATOR .
+            $schemaClass->getName() . DIRECTORY_SEPARATOR . self::CACHED_SCHEMA_FILE_NAME;
 
         if (file_exists($cacheFilePath) && is_readable($cacheFilePath)) {
-            return new CacheFile($cacheFilePath);
+            return new CacheFile(file_get_contents($cacheFilePath));
         }
 
         throw new CacheFileNotFoundException('Cache file not found for ' . $schemaClass->getName());
     }
 
     /**
-     * Sets the cache manager configuration
+     *  Sets the cache manager configuration
      *
-     * @param $configuration array the cache manager configuration
+     *  @param $configuration array the cache manager configuration
      */
     protected function setConfiguration(array $configuration)
     {
@@ -89,13 +98,13 @@ class CacheManager
     }
 
     /**
-     * Gets a configuration item
+     *  Gets a configuration item
      *
-     * @param string $key the configuration key
+     *  @param string $key the configuration key
      *
-     * @return mixed the configuration item
+     *  @return mixed the configuration item
      *
-     * @throws CacheConfigurationException if the configuration item cannot be found
+     *  @throws CacheConfigurationException if the configuration item cannot be found
      */
     protected function getConfiguration($key)
     {

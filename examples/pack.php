@@ -14,9 +14,7 @@ use Kaperys\Financial\Message\Packer\MessagePacker;
  *    The cache manager is responsible for creating and reading schema cache files
  */
 $cacheManager = new CacheManager();
-$cacheManager->generateSchemaCache(new ISO8583());
-
-exit;
+//$cacheManager->generateSchemaCache(new ISO8583());
 
 /*
  * 2) Create a schema manager
@@ -33,7 +31,7 @@ $schemaManager = new SchemaManager(new ISO8583(), $cacheManager);
  *    We are now able to set fields on the message schema through the schema manager (with the help of type hinting).
  *    The schema manager will log the fields we set in preparation for packing the generated message.
  */
-$schemaManager->setPan('1234567890123456');
+$schemaManager->setCurrencyCodeCardholderBilling('GBP');
 
 /*
  * 4) Setup the message packer

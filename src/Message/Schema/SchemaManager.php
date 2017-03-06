@@ -50,16 +50,16 @@ class SchemaManager
     public function __call($method, $arguments)
     {
         if ('set' == $this->getMethodFunction($method)) {
-            $propertyName = $this->formatSetterName($method);
+            $property = $this->cacheManager->getSchemaCache($this->schema)->getDataForProperty(
+                $this->formatSetterName($method)
+            );
 
-            // @todo: Make an annotation data class which can validate the setter data
-            $this->cacheManager->getSchemaCache($this->schema)->getDataForProperty($propertyName);
+            $property->getMapper()->validate($arguments);
 
-            $this->setFields[] = $propertyName;
+            $this->setFields[] = $property->getProperty();
         }
 
-        $reflectedMessageSchemaClass = new ReflectionClass($this->schema);
-        return $reflectedMessageSchemaClass->getMethod($method)->invokeArgs($this->schema, $arguments);
+        return (new ReflectionClass($this->schema))->getMethod($method)->invokeArgs($this->schema, $arguments);
     }
 
     /**
@@ -70,5 +70,15 @@ class SchemaManager
     public function getSetFields(): array
     {
         return $this->setFields;
+    }
+
+    /**
+     * Returns the schema class
+     *
+     * @return MessageSchemaInterface
+     */
+    public function getSchema(): MessageSchemaInterface
+    {
+        return $this->schema;
     }
 }

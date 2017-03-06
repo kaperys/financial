@@ -17,6 +17,7 @@
     },
     "require": {
         "php": "~7.0",
-        "zeptech/annotations": "^1.1"
+        "zeptech/annotations": "^1.1",
+        "tightenco/collect": "^5.4"
     }
 }

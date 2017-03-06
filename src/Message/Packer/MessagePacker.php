@@ -2,6 +2,7 @@
 
 namespace Kaperys\Financial\Message\Packer;
 
+use Kaperys\Financial\Cache\CacheManager;
 use Kaperys\Financial\Message\Schema\SchemaManager;
 
 /**
@@ -90,6 +91,19 @@ class MessagePacker
      */
     public function generate(): string
     {
+        $setFields = $this->schemaManager->getSetFields();
+
+        $schemaCache = (new CacheManager())->getSchemaCache($this->schemaManager->getSchema());
+        foreach ($setFields as $field) {
+            $fieldData = $schemaCache->getDataForProperty($field);
+
+            $packedField = $fieldData->getMapper()->pack(
+                $this->schemaManager->{$fieldData->getGetterName()}()
+            );
+        }
+
+        var_dump($packedField);
+
         return 'packed message';
     }
 }
