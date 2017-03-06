@@ -33,15 +33,22 @@ class ISO8583 implements MessageSchemaInterface
         return self::SCHEMA_NAME;
     }
 
-    public function setPan(string $pan): ISO8583
-    {
-        $this->pan = $pan;
-
-        return $this;
-    }
-
+    /**
+     * @return string
+     */
     public function getPan(): string
     {
         return $this->pan;
+    }
+
+    /**
+     * @param string $pan
+     *
+     * @return ISO8583
+     */
+    public function setPan(string $pan): ISO8583
+    {
+        $this->pan = $pan;
+        return $this;
     }
 }

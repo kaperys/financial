@@ -9,9 +9,9 @@ use Kaperys\Financial\Messgae\Cache\Exception\CacheFileNotFoundException;
 /**
  *  Class CacheManager
  *
- *  @package Kaperys\Financial\Message\Cache
+ * @package Kaperys\Financial\Message\Cache
  *
- *  @author  Mike Kaperys <mike@kaperys.io>
+ * @author  Mike Kaperys <mike@kaperys.io>
  */
 class CacheManager
 {

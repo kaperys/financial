@@ -9,24 +9,39 @@ use Kaperys\Financial\Message\Schema\SchemaManager;
  *
  * @package Kaperys\Financial\Message\Packer
  *
- * @author Mike Kaperys <mike@kaperys.io>
+ * @author  Mike Kaperys <mike@kaperys.io>
  *
  * @property SchemaManager $schemaManager
  */
 class MessagePacker
 {
 
+    /** @var int $headerLength the message header length */
     protected $headerLength;
 
+    /** @var string $mti the message type indicator */
     protected $mti;
 
+    /** @var SchemaManager $schemaManager the message schema manager */
     public $schemaManager;
 
+    /**
+     * MessagePacker constructor.
+     *
+     * @param SchemaManager $schemaManager the schema manager class
+     */
     public function __construct(SchemaManager $schemaManager)
     {
         $this->schemaManager = $schemaManager;
     }
 
+    /**
+     * Sets the message header length
+     *
+     * @param int $headerLength
+     *
+     * @return MessagePacker
+     */
     public function setHeaderLength(int $headerLength): MessagePacker
     {
         $this->headerLength = $headerLength;
@@ -34,11 +49,23 @@ class MessagePacker
         return $this;
     }
 
+    /**
+     * Gets the message header length
+     *
+     * @return int
+     */
     public function getHeaderLength(): int
     {
         return $this->headerLength;
     }
 
+    /**
+     * Sets the message type indicator
+     *
+     * @param string $mti
+     *
+     * @return MessagePacker
+     */
     public function setMti(string $mti): MessagePacker
     {
         $this->mti = $mti;
@@ -46,11 +73,21 @@ class MessagePacker
         return $this;
     }
 
+    /**
+     * Gets the message type indicator
+     *
+     * @return string
+     */
     public function getMti(): string
     {
         return $this->mti;
     }
 
+    /**
+     * Generates the packed message
+     *
+     * @return string
+     */
     public function generate(): string
     {
         return 'packed message';
