@@ -1,15 +1,16 @@
 <?php
 
-namespace Kaperys\Financial\Message\Cache;
+namespace Kaperys\Financial\Cache;
 
-use Kaperys\Financial\Message\Cache\Exception\CacheConfigurationException;
+use Kaperys\Financial\Cache\Exception\CacheConfigurationException;
 use Kaperys\Financial\Message\Schema\MessageSchemaInterface;
-use Kaperys\Financial\Messgae\Cache\Exception\CacheFileNotFoundException;
+use Kaperys\Financial\Cache\Exception\CacheFileNotFoundException;
+use ReflectionClass;
 
 /**
  *  Class CacheManager
  *
- * @package Kaperys\Financial\Message\Cache
+ * @package Kaperys\Financial\Cache
  *
  * @author  Mike Kaperys <mike@kaperys.io>
  */
@@ -46,7 +47,14 @@ class CacheManager
      */
     public function generateSchemaCache(MessageSchemaInterface $schemaClass)
     {
+        $reflectedSchema = new ReflectionClass($schemaClass);
 
+        $propertyAnnotations = [];
+        foreach ($reflectedSchema->getProperties() as $annotation) {
+            $propertyAnnotations[] = $annotation->getDocComment();
+        }
+
+        var_dump($propertyAnnotations);
     }
 
     /**

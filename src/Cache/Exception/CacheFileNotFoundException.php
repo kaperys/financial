@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaperys\Financial\Messgae\Cache\Exception;
+namespace Kaperys\Financial\Cache\Exception;
 
 use Exception;
 

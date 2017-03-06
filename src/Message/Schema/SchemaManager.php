@@ -2,6 +2,7 @@
 
 namespace Kaperys\Financial\Message\Schema;
 
+use Kaperys\Financial\Cache\CacheManager;
 use Kaperys\Financial\Message\Schema\Helpers\AnnotationNameFormatter;
 use ReflectionClass;
 
@@ -23,14 +24,19 @@ class SchemaManager
     /** @var MessageSchemaInterface $schema the message schema */
     protected $schema;
 
+    /** @var CacheManager $cacheManager the schema cache manager */
+    protected $cacheManager;
+
     /**
      * SchemaManager constructor.
      *
-     * @param MessageSchemaInterface $schemaClass the message schema class
+     * @param MessageSchemaInterface $schemaClass  the message schema class
+     * @param CacheManager           $cacheManager the schema cache manager
      */
-    public function __construct(MessageSchemaInterface $schemaClass)
+    public function __construct(MessageSchemaInterface $schemaClass, CacheManager $cacheManager)
     {
-        $this->schema = $schemaClass;
+        $this->schema       = $schemaClass;
+        $this->cacheManager = $cacheManager;
     }
 
     /**
@@ -44,7 +50,12 @@ class SchemaManager
     public function __call($method, $arguments)
     {
         if ('set' == $this->getMethodFunction($method)) {
-            $this->setFields[] = $this->formatSetterName($method);
+            $propertyName = $this->formatSetterName($method);
+
+            // @todo: Make an annotation data class which can validate the setter data
+            $this->cacheManager->getSchemaCache($this->schema)->getDataForProperty($propertyName);
+
+            $this->setFields[] = $propertyName;
         }
 
         $reflectedMessageSchemaClass = new ReflectionClass($this->schema);
