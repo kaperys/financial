@@ -5,17 +5,17 @@ namespace Kaperys\Financial\Message\Mapper;
 use Kaperys\Financial\Container\PropertyAnnotationContainer;
 
 /**
- * Class AlphanumericMapper
+ * Class BinaryMapper
  *
  * @package Kaperys\Financial\Message\Mapper
  *
  * @author  Mike Kaperys <mike@kaperys.io>
  */
-class AlphanumericMapper extends AbstractMapper
+class BinaryMapper extends AbstractMapper
 {
 
     /**
-     * AlphanumericMapper constructor.
+     * BinaryMapper constructor.
      *
      * @param PropertyAnnotationContainer $propertyAnnotationContainer the property annotation container
      */
@@ -31,15 +31,7 @@ class AlphanumericMapper extends AbstractMapper
     {
         // By this point we know the data is correct and valid, so just pack
 
-        if ($this->propertyAnnotationContainer->isFixedLength()) {
-            // Fixed length..
-            $this->propertyAnnotationContainer->getLength();
-        } else {
-            // Variable length
-            $this->propertyAnnotationContainer->getMaxLength();
-        }
-
-        return $data;
+        return 'packed data - alnum mapper';
     }
 
     /**

@@ -34,8 +34,6 @@ interface MapperInterface
      * Validates the given data against the schema
      *
      * @param array $arguments the data
-     *
-     * @return bool
      */
-    public function validate(array $arguments): bool;
+    public function validate(array $arguments);
 }

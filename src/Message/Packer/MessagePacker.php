@@ -91,18 +91,18 @@ class MessagePacker
      */
     public function generate(): string
     {
-        $setFields = $this->schemaManager->getSetFields();
-
         $schemaCache = (new CacheManager())->getSchemaCache($this->schemaManager->getSchema());
-        foreach ($setFields as $field) {
+
+        $packedFields = [];
+        foreach ($this->schemaManager->getSetFields() as $field) {
             $fieldData = $schemaCache->getDataForProperty($field);
 
-            $packedField = $fieldData->getMapper()->pack(
+            $packedFields[$fieldData->getBit()] = $fieldData->getMapper()->pack(
                 $this->schemaManager->{$fieldData->getGetterName()}()
             );
         }
 
-        var_dump($packedField);
+        var_dump($packedFields);
 
         return 'packed message';
     }

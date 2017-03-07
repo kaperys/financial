@@ -28,9 +28,9 @@ class CacheManager
     ];
 
     /**
-     *  CacheManager constructor
+     * CacheManager constructor
      *
-     *  @param array $configuration the cache manager configuration
+     * @param array $configuration the cache manager configuration
      */
     public function __construct($configuration = [])
     {
@@ -38,13 +38,13 @@ class CacheManager
     }
 
     /**
-     *  Generates the schema cache
+     * Generates the schema cache
      *
-     *  @param MessageSchemaInterface $schemaClass the class to generate schema for
+     * @param MessageSchemaInterface $schemaClass the class to generate schema for
      *
-     *  @return bool has the cache file been successfully generated?
+     * @return bool has the cache file been successfully generated?
      *
-     *  @throws CacheWriterException if the cache file cannot be written
+     * @throws CacheWriterException if the cache file cannot be written
      */
     public function generateSchemaCache(MessageSchemaInterface $schemaClass)
     {
@@ -52,7 +52,7 @@ class CacheManager
 
         $schemaPropertyAnnotations = [];
         foreach ($reflectedSchema->getProperties() as $property) {
-            $propertyAnnotations = (new Annotations($property))->asArray();
+            $propertyAnnotations             = (new Annotations($property))->asArray();
             $propertyAnnotations['property'] = $property->name;
 
             $schemaPropertyAnnotations[] = $propertyAnnotations;
@@ -67,13 +67,13 @@ class CacheManager
     }
 
     /**
-     *  Gets the message schema
+     * Gets the message schema
      *
-     *  @param MessageSchemaInterface $schemaClass the schema cache
+     * @param MessageSchemaInterface $schemaClass the schema cache
      *
-     *  @return CacheFile|false CacheFile, or false if not found
+     * @return CacheFile|false CacheFile, or false if not found
      *
-     *  @throws CacheFileNotFoundException if the cache file cannot be found
+     * @throws CacheFileNotFoundException if the cache file cannot be found
      */
     public function getSchemaCache(MessageSchemaInterface $schemaClass)
     {
@@ -88,9 +88,9 @@ class CacheManager
     }
 
     /**
-     *  Sets the cache manager configuration
+     * Sets the cache manager configuration
      *
-     *  @param $configuration array the cache manager configuration
+     * @param $configuration array the cache manager configuration
      */
     protected function setConfiguration(array $configuration)
     {
@@ -98,13 +98,13 @@ class CacheManager
     }
 
     /**
-     *  Gets a configuration item
+     * Gets a configuration item
      *
-     *  @param string $key the configuration key
+     * @param string $key the configuration key
      *
-     *  @return mixed the configuration item
+     * @return mixed the configuration item
      *
-     *  @throws CacheConfigurationException if the configuration item cannot be found
+     * @throws CacheConfigurationException if the configuration item cannot be found
      */
     protected function getConfiguration($key)
     {

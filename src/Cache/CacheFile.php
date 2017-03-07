@@ -1,6 +1,7 @@
 <?php
 
 namespace Kaperys\Financial\Cache;
+
 use Illuminate\Support\Collection;
 use Kaperys\Financial\Container\PropertyAnnotationContainer;
 
@@ -30,9 +31,9 @@ class CacheFile
     /**
      * Returns the schema data
      *
-     * @return array
+     * @return Collection
      */
-    public function getSchemaData(): array
+    public function getSchemaData(): Collection
     {
         return $this->schemaCache;
     }

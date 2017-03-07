@@ -1,7 +1,10 @@
 <?php
 
 namespace Kaperys\Financial\Container;
+
 use Kaperys\Financial\Message\Mapper\AlphanumericMapper;
+use Kaperys\Financial\Message\Mapper\BinaryMapper;
+use Kaperys\Financial\Message\Mapper\Exception\MapperNotFoundException;
 use Kaperys\Financial\Message\Mapper\MapperInterface;
 use Kaperys\Financial\Message\Schema\Helpers\AnnotationNameFormatter;
 
@@ -33,104 +36,144 @@ class PropertyAnnotationContainer
     /**
      * Gets the property data type
      *
-     * @return string
+     * @return string|bool
      */
     public function getType(): string
     {
-        return $this->data['var'];
+        return $this->data['var'] ?: false;
     }
 
     /**
      * Gets the property bit index
      *
-     * @return string
+     * @return string|bool
      */
     public function getBit(): string
     {
-        return $this->data['bit'];
+        return $this->data['bit'] ?: false;
     }
 
     /**
      * Gets the property display (or type)
      *
-     * @return string
+     * @return string|bool
      */
     public function getDisplay(): string
     {
-        return $this->data['display'];
+        return $this->data['display'] ?: false;
+    }
+
+    /**
+     * Gets the property length
+     *
+     * @return string|bool
+     */
+    public function getLength(): string
+    {
+        return $this->data['length'] ?: false;
     }
 
     /**
      * Gets the property minimum length
      *
-     * @return string
+     * @return string|bool
      */
     public function getMinLength(): string
     {
-        return $this->data['minlength'];
+        return $this->data['minlength'] ?: false;
     }
 
     /**
      * Gets the property maximum length
      *
-     * @return string
+     * @return string|bool
      */
     public function getMaxLength(): string
     {
-        return $this->data['maxlength'];
+        return $this->data['maxlength'] ?: false;
     }
 
     /**
      * Gets the property description
      *
-     * @return string
+     * @return string|bool
      */
     public function getDescription(): string
     {
-        return $this->data['description'];
+        return $this->data['description'] ?: false;
     }
 
     /**
      * Gets the property format
      *
-     * @return string
+     * @return string|bool
      */
     public function getFormat(): string
     {
-        return $this->data['format'];
+        return $this->data['format'] ?: false;
     }
 
     /**
      * Gets the property name
      *
-     * @return string
+     * @return string|bool
      */
     public function getProperty(): string
     {
-        return $this->data['property'];
+        return $this->data['property'] ?: false;
     }
 
+    /**
+     * Gets the property getter name
+     *
+     * @return string
+     */
     public function getGetterName(): string
     {
         return $this->addPrefix($this->getProperty(), 'get');
     }
 
+    /**
+     * Gets the property setter name
+     *
+     * @return string
+     */
     public function getSetterName(): string
     {
         return $this->addPrefix($this->getProperty(), 'set');
     }
 
     /**
+     * Is the field fixed length?
+     *
+     * @return bool
+     */
+    public function isFixedLength(): bool
+    {
+        return (bool) $this->getLength();
+    }
+
+    /**
      * Gets the appropriate mapper
      *
      * @return MapperInterface
+     *
+     * @throws MapperNotFoundException if a mapper is not found for the display type
      */
     public function getMapper(): MapperInterface
     {
         switch ($this->getDisplay()) {
             case 'a':
+            case 'an':
+            case 'ans':
+            case 'z':
                 return new AlphanumericMapper($this);
-            break;
+                break;
+            case 'b':
+                return new BinaryMapper($this);
+                break;
+            default:
+                throw new MapperNotFoundException('Mapper not found for display ' . $this->getDisplay());
         }
     }
 }
