@@ -33,15 +33,21 @@ class AlphanumericMapper implements MapperInterface
      */
     public function pack(string $data): string
     {
-        // By this point we know the data is correct and valid, so just pack
+        $packed = bin2hex($data);
 
-        if ($this->propertyAnnotationContainer->isFixedLength()) {
-            $length = $this->propertyAnnotationContainer->getLength();
-        } else {
-            $length = $this->propertyAnnotationContainer->getMaxLength();
+        if (!$this->propertyAnnotationContainer->isFixedLength()) {
+            $lengthIndicator = $this->propertyAnnotationContainer->getLengthIndicator();
+
+            $variableDataLength = (string) strlen($data);
+
+            if (!($variableDataLength % 2)) {
+                $variableDataLength = '0' . $variableDataLength;
+            }
+
+            $packed = str_pad(hex2bin($variableDataLength), $lengthIndicator * 2, 0, STR_PAD_LEFT) . $packed;
         }
 
-        return $data;
+        return $packed;
     }
 
     /**
@@ -51,9 +57,9 @@ class AlphanumericMapper implements MapperInterface
     {
         $parsedData = hex2bin($data);
 
-//        if ('DateTime' == $this->propertyAnnotationContainer->getType()) {
-//            $parsedData = DateTime::createFromFormat($this->propertyAnnotationContainer->getFormat(), $data);
-//        }
+        if ('DateTime' == $this->propertyAnnotationContainer->getType()) {
+            $parsedData = DateTime::createFromFormat($this->propertyAnnotationContainer->getFormat(), $parsedData);
+        }
 
         return $parsedData;
     }

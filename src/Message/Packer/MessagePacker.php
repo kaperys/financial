@@ -41,20 +41,9 @@ class MessagePacker extends AbstractPackUnpack
      */
     public function generate(): string
     {
-        $schemaCache = $this->cacheManager->getSchemaCache($this->schemaManager->getSchema());
-
-        $packedFields = [];
-        foreach ($this->schemaManager->getSetFields() as $field) {
-            $fieldData = $schemaCache->getDataForProperty($field);
-
-            $packedFields[$fieldData->getBit()] = $fieldData->getMapper()->pack(
-                $this->schemaManager->{$fieldData->getGetterName()}()
-            );
-        }
-
         $message = $this->parseMti() .
             $this->parseBitmap($this->schemaManager->getSetFields()) .
-            $this->parseDataElement($packedFields);
+            $this->parseDataElement($this->schemaManager->getSetFields());
 
         return $this->parseMessageLengthHeader($message) . $message;
     }
@@ -90,7 +79,8 @@ class MessagePacker extends AbstractPackUnpack
      */
     protected function parseBitmap(array $setFields): string
     {
-        $bitmap = str_repeat(0, 64);
+        $bitmap       = '';
+        $binaryBitmap = str_repeat(0, 64);
 
         $presentBitmaps = [
             'primary'   => true,
@@ -105,46 +95,52 @@ class MessagePacker extends AbstractPackUnpack
 
             if ($bit > 64) {
                 if (!$presentBitmaps['secondary']) {
-                    $bitmap .= str_repeat(0, 64);
+                    $binaryBitmap .= str_repeat(0, 64);
                 }
 
-                $bitmap[0] = 1;
+                $binaryBitmap[0] = 1;
                 $presentBitmaps['secondary'] = true;
             }
 
             if ($bit > 128) {
                 if (!$presentBitmaps['tertiary']) {
-                    $bitmap .= str_repeat(0, 64);
+                    $binaryBitmap .= str_repeat(0, 64);
                 }
 
-                $bitmap[64] = 1;
+                $binaryBitmap[64] = 1;
                 $presentBitmaps['tertiary'] = true;
             }
 
-            $bitmap[($bit - 1)] = 1;
+            $binaryBitmap[($bit - 1)] = 1;
         }
 
-        var_dump($bitmap);
+        for ($i = 0; $i < strlen($binaryBitmap); $i += 4) {
+            $bitmap .= sprintf('%01x', base_convert(substr($binaryBitmap, $i, 4), 2, 10));
+        }
 
-        return 'bitmap';
+        return $bitmap;
     }
 
     /**
      * Parses the data element
      *
-     * @param array $packedFields set fields on the schema
+     * @param array $setFields set fields on the schema
      *
      * @return string
      */
-    protected function parseDataElement(array $packedFields): string
+    protected function parseDataElement(array $setFields): string
     {
-        ksort($packedFields);
+        ksort($setFields);
 
-        $dataElements = '';
-        foreach ($packedFields as $field) {
-            $dataElements .= $field;
+        $schemaCache = $this->cacheManager->getSchemaCache($this->schemaManager->getSchema());
+
+        $dataElement = '';
+        foreach ($setFields as $field) {
+            $fieldData = $schemaCache->getDataForProperty($field);
+
+            $dataElement .= $fieldData->getMapper()->pack($this->schemaManager->{$fieldData->getGetterName()}());
         }
 
-        return $dataElements;
+        return $dataElement;
     }
 }

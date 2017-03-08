@@ -41,15 +41,14 @@ class MessageUnpacker extends AbstractPackUnpack
      *
      * @param string $message the iso message, in hexadecimal format
      *
-     * @return AbstractPackUnpack
+     * @return MessageUnpacker
      *
      * @throws MessageLengthHeaderException if the message fails length validation
      */
-    public function parse(string $message): AbstractPackUnpack
+    public function parse(string $message): MessageUnpacker
     {
+        // Parse the message length header
         $messageLengthHeader = $this->parseMessageLengthHeader($message);
-
-        // Message without frame header
         $this->shrink($message, ($this->getHeaderLength() * 2));
 
         if (($messageLengthHeader - $this->getHeaderLength()) != (strlen($message) / 2)) {
@@ -58,11 +57,11 @@ class MessageUnpacker extends AbstractPackUnpack
             );
         }
 
+        // Parse the message type indicator
         $this->setMti($this->parseMti($message));
-
-        // Message without message type indicator
         $this->shrink($message, 8);
 
+        // Parse the bitmap
         $bitmap = $this->parseBitmap($message);
 
         if (strlen($bitmap) > 64) {
@@ -76,14 +75,16 @@ class MessageUnpacker extends AbstractPackUnpack
         // Message without bitmaps
         $this->shrink($message, ($numberOfBitmaps * 16));
 
+        // Parse the data element
         $dataElement = $this->parseDataElement($bitmap, $message);
 
-        var_dump($dataElement); exit;
-
         foreach ($dataElement as $bit => $value) {
-            $bitData = $this->cacheManager->getSchemaCache($this->schemaManager->getSchema())->getDataForBit($bit);
-
-            $this->schemaManager->getSchema()->{$bitData->getSetterName()}($value);
+            $this->schemaManager->getSchema()
+                ->{$this->cacheManager
+                    ->getSchemaCache($this->schemaManager->getSchema())
+                    ->getDataForBit($bit)
+                    ->getSetterName()
+                }($value);
         }
 
         return $this;
@@ -178,10 +179,10 @@ class MessageUnpacker extends AbstractPackUnpack
                 $bitData = $schemaCache->getDataForBit($bit);
 
                 if ($bitData->isFixedLength()) {
-                    $bitReadLength = ($bitData->getLength() * 2);
+                    $bitReadLength = $bitData->getLength() * 2;
                 } else {
                     $bitLengthIndicator = $bitData->getLengthIndicator() * 2;
-                    $bitReadLength      = (hex2bin(substr($message, 0, $bitLengthIndicator)) * 2);
+                    $bitReadLength      = hex2bin(substr($message, 0, $bitLengthIndicator)) * 2;
 
                     $this->shrink($message, $bitLengthIndicator);
                 }

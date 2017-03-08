@@ -17,7 +17,7 @@ class ISO8583 implements MessageSchemaInterface
     const SCHEMA_NAME = 'ISO8583';
 
     /**
-     * @var int
+     * @var string
      *
      * @bit             2
      * @display         n
@@ -1434,19 +1434,19 @@ class ISO8583 implements MessageSchemaInterface
     protected $messageAuthenticationCode2;
 
     /**
-     * @return int
+     * @return string
      */
-    public function getPan(): int
+    public function getPan(): string
     {
         return $this->pan;
     }
 
     /**
-     * @param int $pan
+     * @param string $pan
      *
      * @return ISO8583
      */
-    public function setPan(int $pan): ISO8583
+    public function setPan(string $pan): ISO8583
     {
         $this->pan = $pan;
         return $this;
