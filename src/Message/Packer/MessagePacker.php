@@ -24,15 +24,20 @@ class MessagePacker
     protected $mti;
 
     /** @var SchemaManager $schemaManager the message schema manager */
-    public $schemaManager;
+    protected $schemaManager;
+
+    /** @var CacheManager $cacheManager the schema cache manager */
+    protected $cacheManager;
 
     /**
      * MessagePacker constructor.
      *
+     * @param CacheManager  $cacheManager  the schema cache manager
      * @param SchemaManager $schemaManager the schema manager class
      */
-    public function __construct(SchemaManager $schemaManager)
+    public function __construct(CacheManager $cacheManager, SchemaManager $schemaManager)
     {
+        $this->cacheManager  = $cacheManager;
         $this->schemaManager = $schemaManager;
     }
 
@@ -91,7 +96,7 @@ class MessagePacker
      */
     public function generate(): string
     {
-        $schemaCache = (new CacheManager())->getSchemaCache($this->schemaManager->getSchema());
+        $schemaCache = $this->cacheManager->getSchemaCache($this->schemaManager->getSchema());
 
         $packedFields = [];
         foreach ($this->schemaManager->getSetFields() as $field) {
@@ -102,8 +107,91 @@ class MessagePacker
             );
         }
 
-        var_dump($packedFields);
+        return $this->parseMessageLengthHeader() .
+            $this->parseMti() .
+            $this->parseBitmap($this->schemaManager->getSetFields()) .
+            $this->parseDataElement($packedFields);
+    }
 
-        return 'packed message';
+    /**
+     * Parses the message length header
+     *
+     * @return string
+     */
+    protected function parseMessageLengthHeader(): string
+    {
+        return '00';
+    }
+
+    /**
+     * Parses the message type indicator
+     *
+     * @return string
+     */
+    protected function parseMti(): string
+    {
+        return bin2hex($this->getMti());
+    }
+
+    /**
+     * Parses the message bitmap
+     *
+     * @param array $setFields set fields on the schema
+     *
+     * @return string
+     */
+    protected function parseBitmap(array $setFields): string
+    {
+        $bitmap = str_repeat(0, 64);
+
+        $presentBitmaps = [
+            'primary'   => true,
+            'secondary' => false,
+            'tertiary'  => false,
+        ];
+
+        foreach ($setFields as $field) {
+            $propertyData = $this->cacheManager->getSchemaCache(
+                $this->schemaManager->getSchema()
+            )->getDataForProperty($field);
+
+            $bit = $propertyData->getBit();
+
+            if ($bit > 64) {
+                if (!$presentBitmaps['secondary']) {
+                    $bitmap .= str_repeat(0, 64);
+                }
+
+                $presentBitmaps['secondary'] = true;
+            }
+
+            if ($bit > 128) {
+                if (!$presentBitmaps['tertiary']) {
+                    $bitmap .= str_repeat(0, 64);
+                }
+
+                $presentBitmaps['tertiary'] = true;
+            }
+
+            $bitmap[($bit - 1)] = 1;
+        }
+
+        var_dump($bitmap);
+
+        return 'bitmap';
+
+        //return bin2hex($bitmap);
+    }
+
+    /**
+     * Parses the data element
+     *
+     * @param array $packedFields set fields on the schema
+     *
+     * @return string
+     */
+    protected function parseDataElement(array $packedFields): string
+    {
+        return 'data';
     }
 }

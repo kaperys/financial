@@ -4,6 +4,7 @@ namespace Kaperys\Financial\Message\Schema\Validator;
 
 use DateTime;
 use Kaperys\Financial\Container\PropertyAnnotationContainer;
+use Kaperys\Financial\Message\Schema\Validator\Exception\FieldValidationException;
 
 /**
  * Class FieldValidator
@@ -38,22 +39,38 @@ class FieldValidator
      * @param mixed                       $data
      *
      * @return bool
+     *
+     * @throws FieldValidationException if the validation criteria is not met
      */
     protected function validateType(PropertyAnnotationContainer $propertyAnnotationContainer, $data): bool
     {
         if ($propertyAnnotationContainer->getType() == 'DateTime') {
-            return $data instanceof DateTime;
+            if (!$data instanceof DateTime) {
+                throw new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be an instance of DateTime'
+                );
+            }
         }
 
+        /** @todo: Change ->getType() to ->getDisplay() and validate based on this type - https://en.wikipedia.org/wiki/ISO_8583#Data_elements */
+
         if ($propertyAnnotationContainer->getType() == 'string') {
-            return ctype_alpha($data);
+            if (!ctype_alpha($data)) {
+                throw new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be a string'
+                );
+            }
         }
 
         if ($propertyAnnotationContainer->getType() == 'int') {
-            return ctype_digit($data);
+            if (!ctype_digit($data)) {
+                throw new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be an integer'
+                );
+            }
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -63,10 +80,19 @@ class FieldValidator
      * @param mixed                       $data
      *
      * @return bool
+     *
+     * @throws FieldValidationException if the validation criteria is not met
      */
     protected function validateFixedLengthField(PropertyAnnotationContainer $propertyAnnotationContainer, $data): bool
     {
-        return $propertyAnnotationContainer->getLength() == strlen($data);
+        if ($propertyAnnotationContainer->getLength() != strlen($data)) {
+            throw new FieldValidationException(
+                'Bit ' . $propertyAnnotationContainer->getBit() . ' should be length ' .
+                $propertyAnnotationContainer->getLength() . ', but length ' . strlen($data) . ' was found'
+            );
+        }
+
+        return true;
     }
 
     /**
@@ -76,12 +102,23 @@ class FieldValidator
      * @param mixed                       $data
      *
      * @return bool
+     *
+     * @throws FieldValidationException if the validation criteria is not met
      */
     protected function validateVariableLengthField(
         PropertyAnnotationContainer $propertyAnnotationContainer,
         $data
     ): bool {
-        return strlen($data) < $propertyAnnotationContainer->getMaxLength() &&
-            strlen($data) > $propertyAnnotationContainer->getMinLength();
+        if (strlen($data) > $propertyAnnotationContainer->getMaxLength() ||
+            strlen($data) < $propertyAnnotationContainer->getMinLength()
+        ) {
+            throw new FieldValidationException(
+                'Bit ' . $propertyAnnotationContainer->getBit() . ' should be between lengths ' .
+                $propertyAnnotationContainer->getMinLength() . ' and ' . $propertyAnnotationContainer->getMaxLength() .
+                ', but length ' . strlen($data) . ' was found'
+            );
+        }
+
+        return true;
     }
 }

@@ -29,11 +29,4 @@ interface MapperInterface
      * @return string the unpacked data
      */
     public function unpack(string $data): string;
-
-    /**
-     * Validates the given data against the schema
-     *
-     * @param array $arguments the data
-     */
-    public function validate(array $arguments);
 }

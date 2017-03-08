@@ -36,31 +36,31 @@ class PropertyAnnotationContainer
     /**
      * Gets the property data type
      *
-     * @return string|bool
+     * @return string
      */
     public function getType(): string
     {
-        return $this->data['var'] ?: false;
+        return $this->data['var'];
     }
 
     /**
      * Gets the property bit index
      *
-     * @return string|bool
+     * @return string
      */
     public function getBit(): string
     {
-        return $this->data['bit'] ?: false;
+        return $this->data['bit'];
     }
 
     /**
      * Gets the property display (or type)
      *
-     * @return string|bool
+     * @return string
      */
     public function getDisplay(): string
     {
-        return $this->data['display'] ?: false;
+        return $this->data['display'];
     }
 
     /**
@@ -70,7 +70,7 @@ class PropertyAnnotationContainer
      */
     public function getLength(): string
     {
-        return $this->data['length'] ?: false;
+        return isset($this->data['length']) ? $this->data['length'] : false;
     }
 
     /**
@@ -80,7 +80,7 @@ class PropertyAnnotationContainer
      */
     public function getMinLength(): string
     {
-        return $this->data['minlength'] ?: false;
+        return isset($this->data['minlength']) ? $this->data['minlength'] : false;
     }
 
     /**
@@ -90,17 +90,17 @@ class PropertyAnnotationContainer
      */
     public function getMaxLength(): string
     {
-        return $this->data['maxlength'] ?: false;
+        return isset($this->data['maxlength']) ? $this->data['maxlength'] : false;
     }
 
     /**
      * Gets the property description
      *
-     * @return string|bool
+     * @return string
      */
     public function getDescription(): string
     {
-        return $this->data['description'] ?: false;
+        return $this->data['description'];
     }
 
     /**
@@ -110,17 +110,17 @@ class PropertyAnnotationContainer
      */
     public function getFormat(): string
     {
-        return $this->data['format'] ?: false;
+        return isset($this->data['format']) ? $this->data['format'] : false;
     }
 
     /**
      * Gets the property name
      *
-     * @return string|bool
+     * @return string
      */
     public function getProperty(): string
     {
-        return $this->data['property'] ?: false;
+        return $this->data['property'];
     }
 
     /**
@@ -165,6 +165,7 @@ class PropertyAnnotationContainer
         switch ($this->getDisplay()) {
             case 'a':
             case 'an':
+            case 'as':
             case 'ans':
             case 'z':
                 return new AlphanumericMapper($this);

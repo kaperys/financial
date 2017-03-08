@@ -32,6 +32,7 @@ $schemaManager = new SchemaManager(new ISO8583(), $cacheManager);
  *    The schema manager will log the fields we set in preparation for packing the generated message.
  */
 $schemaManager->setCurrencyCodeCardholderBilling('GBP');
+$schemaManager->setPrivateReserved6('bitmaptest');
 
 /*
  * 4) Setup the message packer
@@ -40,7 +41,7 @@ $schemaManager->setCurrencyCodeCardholderBilling('GBP');
  *    the message data (mti, header length, bitmap, etc).
  */
 /** @var MessagePacker $message */
-$message = (new Financial())->pack($schemaManager);
+$message = (new Financial($cacheManager))->pack($schemaManager);
 
 $message->setHeaderLength(2);
 $message->setMti(0200);

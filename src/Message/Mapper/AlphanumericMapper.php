@@ -11,8 +11,11 @@ use Kaperys\Financial\Container\PropertyAnnotationContainer;
  *
  * @author  Mike Kaperys <mike@kaperys.io>
  */
-class AlphanumericMapper extends AbstractMapper
+class AlphanumericMapper implements MapperInterface
 {
+
+    /** @var PropertyAnnotationContainer $propertyAnnotationContainer the property annotation data container */
+    protected $propertyAnnotationContainer;
 
     /**
      * AlphanumericMapper constructor.

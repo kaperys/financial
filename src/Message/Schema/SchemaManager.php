@@ -4,6 +4,7 @@ namespace Kaperys\Financial\Message\Schema;
 
 use Kaperys\Financial\Cache\CacheManager;
 use Kaperys\Financial\Message\Schema\Helpers\AnnotationNameFormatter;
+use Kaperys\Financial\Message\Schema\Validator\FieldValidator;
 use ReflectionClass;
 
 /**
@@ -54,7 +55,7 @@ class SchemaManager
                 $this->formatSetterName($method)
             );
 
-            $property->getMapper()->validate($arguments);
+            (new FieldValidator())->validate($property, $arguments[0]);
 
             $this->setFields[] = $property->getProperty();
         }

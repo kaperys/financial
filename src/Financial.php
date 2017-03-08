@@ -2,6 +2,7 @@
 
 namespace Kaperys\Financial;
 
+use Kaperys\Financial\Cache\CacheManager;
 use Kaperys\Financial\Message\Packer\MessagePacker;
 use Kaperys\Financial\Message\Schema\SchemaManager;
 use Kaperys\Financial\Message\Unpacker\MessageUnpacker;
@@ -16,6 +17,19 @@ use Kaperys\Financial\Message\Unpacker\MessageUnpacker;
 class Financial
 {
 
+    /** @var CacheManager $cacheManager */
+    protected $cacheManager;
+
+    /**
+     * Financial constructor.
+     *
+     * @param CacheManager $cacheManager
+     */
+    public function __construct(CacheManager $cacheManager)
+    {
+        $this->cacheManager = $cacheManager;
+    }
+
     /**
      * Returns an instance of the message packer
      *
@@ -25,7 +39,7 @@ class Financial
      */
     public function pack(SchemaManager $schemaManager)
     {
-        return new MessagePacker($schemaManager);
+        return new MessagePacker($this->cacheManager, $schemaManager);
     }
 
     /**

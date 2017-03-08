@@ -11,8 +11,11 @@ use Kaperys\Financial\Container\PropertyAnnotationContainer;
  *
  * @author  Mike Kaperys <mike@kaperys.io>
  */
-class BinaryMapper extends AbstractMapper
+class BinaryMapper implements MapperInterface
 {
+
+    /** @var PropertyAnnotationContainer $propertyAnnotationContainer the property annotation data container */
+    protected $propertyAnnotationContainer;
 
     /**
      * BinaryMapper constructor.
@@ -31,7 +34,7 @@ class BinaryMapper extends AbstractMapper
     {
         // By this point we know the data is correct and valid, so just pack
 
-        return 'packed data - alnum mapper';
+        return 'packed data - binary mapper';
     }
 
     /**
