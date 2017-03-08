@@ -40,8 +40,10 @@ class BinaryMapper implements MapperInterface
     /**
      * @inheritdoc
      */
-    public function unpack(string $data): string
+    public function unpack(string $data)
     {
         // TODO: Implement unpack() method.
+
+        return $data;
     }
 }

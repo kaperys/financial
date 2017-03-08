@@ -3,6 +3,7 @@
 namespace Kaperys\Financial\Message\Packer;
 
 use Kaperys\Financial\Cache\CacheManager;
+use Kaperys\Financial\Message\AbstractPackUnpack;
 use Kaperys\Financial\Message\Schema\SchemaManager;
 
 /**
@@ -11,17 +12,9 @@ use Kaperys\Financial\Message\Schema\SchemaManager;
  * @package Kaperys\Financial\Message\Packer
  *
  * @author  Mike Kaperys <mike@kaperys.io>
- *
- * @property SchemaManager $schemaManager
  */
-class MessagePacker
+class MessagePacker extends AbstractPackUnpack
 {
-
-    /** @var int $headerLength the message header length */
-    protected $headerLength;
-
-    /** @var string $mti the message type indicator */
-    protected $mti;
 
     /** @var SchemaManager $schemaManager the message schema manager */
     protected $schemaManager;
@@ -42,54 +35,6 @@ class MessagePacker
     }
 
     /**
-     * Sets the message header length
-     *
-     * @param int $headerLength
-     *
-     * @return MessagePacker
-     */
-    public function setHeaderLength(int $headerLength): MessagePacker
-    {
-        $this->headerLength = $headerLength;
-
-        return $this;
-    }
-
-    /**
-     * Gets the message header length
-     *
-     * @return int
-     */
-    public function getHeaderLength(): int
-    {
-        return $this->headerLength;
-    }
-
-    /**
-     * Sets the message type indicator
-     *
-     * @param string $mti
-     *
-     * @return MessagePacker
-     */
-    public function setMti(string $mti): MessagePacker
-    {
-        $this->mti = $mti;
-
-        return $this;
-    }
-
-    /**
-     * Gets the message type indicator
-     *
-     * @return string
-     */
-    public function getMti(): string
-    {
-        return $this->mti;
-    }
-
-    /**
      * Generates the packed message
      *
      * @return string
@@ -107,20 +52,23 @@ class MessagePacker
             );
         }
 
-        return $this->parseMessageLengthHeader() .
-            $this->parseMti() .
+        $message = $this->parseMti() .
             $this->parseBitmap($this->schemaManager->getSetFields()) .
             $this->parseDataElement($packedFields);
+
+        return $this->parseMessageLengthHeader($message) . $message;
     }
 
     /**
      * Parses the message length header
      *
-     * @return string
+     * @param string $message the packed message
+     *
+     * @return string the message length header (in hex)
      */
-    protected function parseMessageLengthHeader(): string
+    protected function parseMessageLengthHeader(string $message): string
     {
-        return '00';
+        return str_pad(dechex((strlen($message) / 2)), ($this->getHeaderLength() * 2), 0, STR_PAD_LEFT);
     }
 
     /**
@@ -151,17 +99,16 @@ class MessagePacker
         ];
 
         foreach ($setFields as $field) {
-            $propertyData = $this->cacheManager->getSchemaCache(
+            $bit = $this->cacheManager->getSchemaCache(
                 $this->schemaManager->getSchema()
-            )->getDataForProperty($field);
-
-            $bit = $propertyData->getBit();
+            )->getDataForProperty($field)->getBit();
 
             if ($bit > 64) {
                 if (!$presentBitmaps['secondary']) {
                     $bitmap .= str_repeat(0, 64);
                 }
 
+                $bitmap[0] = 1;
                 $presentBitmaps['secondary'] = true;
             }
 
@@ -170,6 +117,7 @@ class MessagePacker
                     $bitmap .= str_repeat(0, 64);
                 }
 
+                $bitmap[64] = 1;
                 $presentBitmaps['tertiary'] = true;
             }
 
@@ -179,8 +127,6 @@ class MessagePacker
         var_dump($bitmap);
 
         return 'bitmap';
-
-        //return bin2hex($bitmap);
     }
 
     /**
@@ -192,6 +138,13 @@ class MessagePacker
      */
     protected function parseDataElement(array $packedFields): string
     {
-        return 'data';
+        ksort($packedFields);
+
+        $dataElements = '';
+        foreach ($packedFields as $field) {
+            $dataElements .= $field;
+        }
+
+        return $dataElements;
     }
 }

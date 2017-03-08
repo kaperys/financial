@@ -94,6 +94,16 @@ class PropertyAnnotationContainer
     }
 
     /**
+     * Gets the length indicator for a variable length field
+     *
+     * @return string|bool
+     */
+    public function getLengthIndicator(): string
+    {
+        return isset($this->data['lengthindicator']) ? $this->data['lengthindicator'] : false;
+    }
+
+    /**
      * Gets the property description
      *
      * @return string
@@ -164,8 +174,11 @@ class PropertyAnnotationContainer
     {
         switch ($this->getDisplay()) {
             case 'a':
+            case 'n':
+            case 's':
             case 'an':
             case 'as':
+            case 'ns':
             case 'ans':
             case 'z':
                 return new AlphanumericMapper($this);

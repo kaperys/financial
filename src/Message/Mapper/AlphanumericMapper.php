@@ -2,6 +2,7 @@
 
 namespace Kaperys\Financial\Message\Mapper;
 
+use DateTime;
 use Kaperys\Financial\Container\PropertyAnnotationContainer;
 
 /**
@@ -35,11 +36,9 @@ class AlphanumericMapper implements MapperInterface
         // By this point we know the data is correct and valid, so just pack
 
         if ($this->propertyAnnotationContainer->isFixedLength()) {
-            // Fixed length..
-            $this->propertyAnnotationContainer->getLength();
+            $length = $this->propertyAnnotationContainer->getLength();
         } else {
-            // Variable length
-            $this->propertyAnnotationContainer->getMaxLength();
+            $length = $this->propertyAnnotationContainer->getMaxLength();
         }
 
         return $data;
@@ -48,8 +47,14 @@ class AlphanumericMapper implements MapperInterface
     /**
      * @inheritdoc
      */
-    public function unpack(string $data): string
+    public function unpack(string $data)
     {
-        // TODO: Implement unpack() method.
+        $parsedData = hex2bin($data);
+
+//        if ('DateTime' == $this->propertyAnnotationContainer->getType()) {
+//            $parsedData = DateTime::createFromFormat($this->propertyAnnotationContainer->getFormat(), $data);
+//        }
+
+        return $parsedData;
     }
 }

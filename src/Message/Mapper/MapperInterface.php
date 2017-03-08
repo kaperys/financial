@@ -26,7 +26,7 @@ interface MapperInterface
      *
      * @param string $data the property data
      *
-     * @return string the unpacked data
+     * @return mixed the unpacked data
      */
-    public function unpack(string $data): string;
+    public function unpack(string $data);
 }

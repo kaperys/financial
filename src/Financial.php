@@ -37,7 +37,7 @@ class Financial
      *
      * @return MessagePacker
      */
-    public function pack(SchemaManager $schemaManager)
+    public function pack(SchemaManager $schemaManager): MessagePacker
     {
         return new MessagePacker($this->cacheManager, $schemaManager);
     }
@@ -49,8 +49,8 @@ class Financial
      *
      * @return MessageUnpacker
      */
-    public function unpack(SchemaManager $schemaManager)
+    public function unpack(SchemaManager $schemaManager): MessageUnpacker
     {
-        return new MessageUnpacker($schemaManager);
+        return new MessageUnpacker($this->cacheManager, $schemaManager);
     }
 }
