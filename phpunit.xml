@@ -12,7 +12,7 @@
         strict="true"
         colors="true"
         mapTestClassNameToCoveredClassName="true"
-        bootstrap="shared/phpunit.bootstrap.php"
+        bootstrap="vendor/autoload.php"
         timeoutForSmallTests="5"
         timeoutForMediumTests="20"
 >
