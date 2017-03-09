@@ -67,7 +67,7 @@ class MessagePacker extends AbstractPackUnpack
      */
     protected function parseMti(): string
     {
-        return bin2hex($this->getMti());
+        return str_pad(bin2hex($this->getMti()), 8, 0, STR_PAD_LEFT);
     }
 
     /**

@@ -41,6 +41,7 @@ class AlphanumericMapper implements MapperInterface
             $variableDataLength = (string) strlen($data);
 
             if (!($variableDataLength % 2)) {
+                // Since we're using hex2bin, the $variableDataLength must be of even length
                 $variableDataLength = '0' . $variableDataLength;
             }
 

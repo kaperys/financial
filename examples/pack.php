@@ -45,7 +45,7 @@ $schemaManager->setPrivateReserved6('sample');
 $message = (new Financial($cacheManager))->pack($schemaManager);
 
 $message->setHeaderLength(2);
-$message->setMti(0200);
+$message->setMti('0200');
 
 /*
  * 5) Generate the packed message

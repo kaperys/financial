@@ -58,7 +58,7 @@ class MessageUnpacker extends AbstractPackUnpack
         }
 
         // Parse the message type indicator
-        $this->setMti($this->parseMti($message));
+        $this->setMti((string) $this->parseMti($message));
         $this->shrink($message, 8);
 
         // Parse the bitmap
