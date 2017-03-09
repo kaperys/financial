@@ -1,6 +1,8 @@
 # kaperys/financial
 A simple PHP ISO8583 pack and unpack library
 
+[![Build Status](https://travis-ci.org/kaperys/financial.svg?branch=master)](https://travis-ci.org/kaperys/financial)
+
 ## Usage
 Packing the message
 ```php
