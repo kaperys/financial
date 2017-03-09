@@ -10,12 +10,13 @@ before_script:
   - composer self-update
   - composer install --dev --prefer-source
   - mkdir -p ./build/logs
+  - mkdir -p ./tests/logs
 
 script:
   - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
-after_success:
-  - travis_retry php ./vendor/bin/coveralls -v
+after_script:
+  - php ./vendor/bin/coveralls -v
 
 notifications:
   email:
