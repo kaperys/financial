@@ -9,5 +9,20 @@ matrix:
 before_script:
   - composer self-update
   - composer install --dev --prefer-source
+  - mkdir -p build/logs
 
-script: vendor/bin/phpunit
+script:
+  - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry php coveralls.phar -v
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.cache/composer

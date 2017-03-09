@@ -2,6 +2,7 @@
 A simple PHP ISO8583 pack and unpack library
 
 [![Build Status](https://travis-ci.org/kaperys/financial.svg?branch=master)](https://travis-ci.org/kaperys/financial)
+[![Coverage Status](https://coveralls.io/repos/github/kaperys/financial/badge.svg?branch=master)](https://coveralls.io/github/kaperys/financial?branch=master)
 
 ## Usage
 Packing the message
