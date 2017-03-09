@@ -16,10 +16,6 @@
         timeoutForSmallTests="5"
         timeoutForMediumTests="20"
 >
-    <logging>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
-
     <testsuites>
         <testsuite name="TestSuite">
             <directory suffix="Test.php">./tests/</directory>
