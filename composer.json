@@ -10,7 +10,8 @@
     "require": {
         "php": "~7.0",
         "zeptech/annotations": "^1.1",
-        "tightenco/collect": "^5.4"
+        "tightenco/collect": "^5.4",
+        "satooshi/php-coveralls": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0"
