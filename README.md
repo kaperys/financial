@@ -46,6 +46,15 @@ echo $schema->getCardAcceptorNameLocation();
 ```
 
 ## Installation
-```
+```bash
 composer require kaperys/financial
 ```
+
+## Contributing
+..
+
+## Issues
+..
+
+## Change Log
+..
