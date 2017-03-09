@@ -4,6 +4,7 @@ namespace Kaperys\Financial\Message\Schema\Validator;
 
 use DateTime;
 use Kaperys\Financial\Container\PropertyAnnotationContainer;
+use Kaperys\Financial\Message\Constants\Display;
 use Kaperys\Financial\Message\Schema\Validator\Exception\FieldValidationException;
 
 /**
@@ -50,24 +51,46 @@ class FieldValidator
                     'Bit ' . $propertyAnnotationContainer->getBit() . ' should be an instance of DateTime'
                 );
             }
+
+            return true;
         }
 
-        /** @todo: Change ->getType() to ->getDisplay() and validate based on this type - https://en.wikipedia.org/wiki/ISO_8583#Data_elements */
+        // @todo: Implement this validation
 
-        if ($propertyAnnotationContainer->getType() == 'string') {
-            if (!ctype_alpha($data)) {
-                throw new FieldValidationException(
-                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be a string'
-                );
-            }
+        if (Display::ALPHA == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
         }
 
-        if ($propertyAnnotationContainer->getType() == 'int') {
-            if (!ctype_digit($data)) {
-                throw new FieldValidationException(
-                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be an integer'
-                );
-            }
+        if (Display::NUMERIC == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
+        }
+
+        if (Display::SPECIAL == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
+        }
+
+        if (Display::ALPHA_NUMERIC == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
+        }
+
+        if (Display::ALPHA_SPECIAL == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
+        }
+
+        if (Display::NUMERIC_SPECIAL == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
+        }
+
+        if (Display::ALPHA_NUMERIC_SPECIAL == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
+        }
+
+        if (Display::BINARY == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
+        }
+
+        if (Display::TRACK_DATA == $propertyAnnotationContainer->getDisplay()) {
+            // Regex, throw
         }
 
         return true;
@@ -85,6 +108,10 @@ class FieldValidator
      */
     protected function validateFixedLengthField(PropertyAnnotationContainer $propertyAnnotationContainer, $data): bool
     {
+        if ('DateTime' == $propertyAnnotationContainer->getType()) {
+            return true;
+        }
+
         if ($propertyAnnotationContainer->getLength() != strlen($data)) {
             throw new FieldValidationException(
                 'Bit ' . $propertyAnnotationContainer->getBit() . ' should be length ' .
@@ -109,6 +136,10 @@ class FieldValidator
         PropertyAnnotationContainer $propertyAnnotationContainer,
         $data
     ): bool {
+        if ('DateTime' == $propertyAnnotationContainer->getType()) {
+            return true;
+        }
+
         if (strlen($data) > $propertyAnnotationContainer->getMaxLength() ||
             strlen($data) < $propertyAnnotationContainer->getMinLength()
         ) {

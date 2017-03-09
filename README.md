@@ -3,7 +3,7 @@ A simple PHP ISO8583 pack and unpack library
 
 ## Usage
 Packing the message
-```
+```php
 $cacheManager = new CacheManager();
 $cacheManager->generateSchemaCache(new ISO8583());
 
@@ -23,7 +23,7 @@ echo $message->generate();
 ```
 
 Unpacking the message
-```
+```php
 $cacheManager = new CacheManager();
 $cacheManager->generateSchemaCache(new ISO8583());
 

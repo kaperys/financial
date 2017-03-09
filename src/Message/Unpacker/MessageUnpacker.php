@@ -79,7 +79,7 @@ class MessageUnpacker extends AbstractPackUnpack
         $dataElement = $this->parseDataElement($bitmap, $message);
 
         foreach ($dataElement as $bit => $value) {
-            $this->schemaManager->getSchema()
+            $this->schemaManager
                 ->{$this->cacheManager
                     ->getSchemaCache($this->schemaManager->getSchema())
                     ->getDataForBit($bit)
@@ -91,13 +91,13 @@ class MessageUnpacker extends AbstractPackUnpack
     }
 
     /**
-     * Gets the parsed message schema class
+     * Gets the schema manager
      *
-     * @return MessageSchemaInterface
+     * @return SchemaManager
      */
-    public function getParsedSchema(): MessageSchemaInterface
+    public function getSchemaManager(): SchemaManager
     {
-        return $this->schemaManager->getSchema();
+        return $this->schemaManager;
     }
 
     /**
@@ -136,7 +136,7 @@ class MessageUnpacker extends AbstractPackUnpack
         $compiledBitmap = "";
 
         for (;;) {
-            // Support for PHP's accuracy issues when using base_convert - ugly, I know!
+            // Support for PHPs accuracy issues when using base_convert - ugly, I know!
             $bitmap = implode(null, array_map(function ($bit) {
                 return str_pad(base_convert($bit, 16, 2), 8, 0, STR_PAD_LEFT);
             }, str_split(substr($message, 0, 16), 2)));
