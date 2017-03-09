@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# Config
+command=${1}
+containerName="financial"
+
+# [Local Path]:[Container Path]
+mountPoints=(
+    "`pwd`:/var/cli/financial"
+)
+
+function help()
+{
+    echo -e "\nUsage:"
+    echo -e "${0} [build|start|stop|help|ssh|list]\n"
+    exit 1
+}
+
+function build()
+{
+    docker build -t ${containerName} .
+}
+
+function start()
+{
+    mounts=""
+    for mountPoint in "${mountPoints[@]}"; do
+        mounts="${mounts} -v ${mountPoint} "
+    done
+
+    docker run -d ${mounts} --name ${containerName} --hostname ${containerName} -t ${containerName}
+}
+
+function stop()
+{
+    docker stop ${containerName} >/dev/null && docker rm ${containerName} >/dev/null
+}
+
+function ssh()
+{
+    docker exec -it ${containerName} bash
+}
+
+function list()
+{
+    docker ps
+}
+
+case ${command} in
+    "build")
+        build
+    ;;
+
+    "start")
+        start
+    ;;
+
+    "stop")
+        stop
+    ;;
+
+    "help")
+        help
+    ;;
+
+    "ssh")
+        ssh
+    ;;
+
+    "list")
+        list
+    ;;
+
+    *)
+        help
+esac
