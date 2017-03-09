@@ -1,0 +1,1 @@
+[{"var":"string","bit":2,"display":"n","minlength":15,"maxlength":19,"description":"Primary account number (PAN)","format":"LLVAR","lengthindicator":2,"property":"pan"}]

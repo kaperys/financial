@@ -12,7 +12,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Kaperys\\Financial\\": "src/"
+            "Kaperys\\Financial\\": "src/",
+            "Kaperys\\Financial\\Tests": "tests/",
         }
     },
     "require": {
