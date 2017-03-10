@@ -16,6 +16,10 @@
         timeoutForSmallTests="5"
         timeoutForMediumTests="20"
 >
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">./src/</whitelist>
+    </filter>
+
     <testsuites>
         <testsuite name="TestSuite">
             <directory suffix="Test.php">./tests/</directory>
