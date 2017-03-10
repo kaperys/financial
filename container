@@ -12,7 +12,7 @@ mountPoints=(
 function help()
 {
     echo -e "\nUsage:"
-    echo -e "${0} [build|start|stop|help|ssh|list]\n"
+    echo -e "${0} [build|start|stop|restart|help|ssh|list]\n"
     exit 1
 }
 
@@ -36,6 +36,12 @@ function stop()
     docker stop ${containerName} >/dev/null && docker rm ${containerName} >/dev/null
 }
 
+function restart()
+{
+    stop
+    start
+}
+
 function ssh()
 {
     docker exec -it ${containerName} bash
@@ -57,6 +63,10 @@ case ${command} in
 
     "stop")
         stop
+    ;;
+
+    "restart")
+        restart
     ;;
 
     "help")

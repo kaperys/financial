@@ -17,8 +17,15 @@
         timeoutForMediumTests="20"
 >
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">./src/</whitelist>
+        <whitelist>
+            <directory>src/</directory>
+        </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-html" target="build/coverage"/>
+        <log type="coverage-clover" target="build/clover.xml"/>
+    </logging>
 
     <testsuites>
         <testsuite name="TestSuite">
