@@ -2,6 +2,8 @@
 
 namespace Kaperys\Financial\Message;
 
+use Kaperys\Financial\Message\Schema\MessageTypeIndicator;
+
 /**
  * Class AbstractPackUnpack
  *
@@ -58,10 +60,10 @@ abstract class AbstractPackUnpack
     /**
      * Gets the message type indicator
      *
-     * @return string
+     * @return MessageTypeIndicator
      */
-    public function getMti(): string
+    public function getMti(): MessageTypeIndicator
     {
-        return $this->mti;
+        return new MessageTypeIndicator($this->mti);
     }
 }
