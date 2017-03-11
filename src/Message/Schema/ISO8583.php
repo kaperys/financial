@@ -335,7 +335,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 11
      * @description "Acquiring institution identification code"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $acquiringInstitutionIdentificationCode;
 
@@ -348,7 +347,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 11
      * @description "Forwarding institution identification code"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $forwardingInstitutionIdentificationCode;
 
@@ -361,7 +359,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 28
      * @description "Primary account number extended"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $primaryAccountNumberExtended;
 
@@ -374,7 +371,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 37
      * @description "Track 2 data - ISO/IEC 7813"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $track2Data;
 
@@ -387,7 +383,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 104
      * @description "Track 3 data - ISO/IEC 4909"
      * @format    LLLVAR
-     * @lengthIndicator 2
      */
     protected $track3Data;
 
@@ -470,7 +465,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 25
      * @description "Additional response data"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $additionalResponseData;
 
@@ -483,7 +477,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 76
      * @description "Track 1 data"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $track1Data;
 
@@ -496,7 +489,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Additional data ISO"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $additionalDataIso;
 
@@ -521,7 +513,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Additional data private"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $additionalDataPrivate;
 
@@ -584,7 +575,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 120
      * @description "Additional amounts"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $additionalAmounts;
 
@@ -597,7 +587,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Reserved for ISO use 1"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved1;
 
@@ -610,7 +599,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 4
      * @description "Reserved for ISO use 2"
      * @format    LLLVAR
-     * @lengthIndicator 2
      */
     protected $isoReserved2;
 
@@ -623,7 +611,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Reserved for national use 1"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved1;
 
@@ -636,7 +623,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Reserved for national use 2"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved2;
 
@@ -649,7 +635,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 64
      * @description "Reserved for national use 3"
      * @format    LLLVAR
-     * @lengthIndicator 2
      */
     protected $nationalReserved3;
 
@@ -662,7 +647,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Reserved for private use 1"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved1;
 
@@ -675,7 +659,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Reserved for private use 2"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved2;
 
@@ -688,7 +671,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Reserved for private use 3"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved3;
 
@@ -701,7 +683,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Reserved for private use 4"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved4;
 
@@ -1055,7 +1036,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 11
      * @description "Settlement institution identification code"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $settlementInstitutionIdentificationCode;
 
@@ -1068,7 +1048,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 11
      * @description "Receiving institution identification code"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $receivingInstitutionIdentificationCode;
 
@@ -1081,7 +1060,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 17
      * @description "File name"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $fileName;
 
@@ -1094,7 +1072,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 28
      * @description "Account identification 1"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $accountIdentification1;
 
@@ -1107,7 +1084,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 28
      * @description "Account identification 2"
      * @format    LLVAR
-     * @lengthIndicator 2
      */
     protected $accountIdentification2;
 
@@ -1120,7 +1096,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 100
      * @description "Transaction description"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $transactionDescription;
 
@@ -1133,7 +1108,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "ISO reserved 3"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved3;
 
@@ -1146,7 +1120,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "ISO reserved 4"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved4;
 
@@ -1159,7 +1132,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "ISO reserved 5"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved5;
 
@@ -1172,7 +1144,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "ISO reserved 6"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved6;
 
@@ -1185,7 +1156,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "ISO reserved 7"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved7;
 
@@ -1198,7 +1168,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "ISO reserved 8"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved8;
 
@@ -1211,7 +1180,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "ISO reserved 9"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $isoReserved9;
 
@@ -1224,7 +1192,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 4"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved4;
 
@@ -1237,7 +1204,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 5"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved5;
 
@@ -1250,7 +1216,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 6"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved6;
 
@@ -1263,7 +1228,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 7"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved7;
 
@@ -1276,7 +1240,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 8"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved8;
 
@@ -1289,7 +1252,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 9"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved9;
 
@@ -1302,7 +1264,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 10"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved10;
 
@@ -1315,7 +1276,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "National reserved 11"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $nationalReserved11;
 
@@ -1328,7 +1288,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Private reserved 5"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved5;
 
@@ -1341,7 +1300,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Private reserved 6"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved6;
 
@@ -1354,7 +1312,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Private reserved 7"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved7;
 
@@ -1367,7 +1324,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 15
      * @description "Private reserved 8"
      * @format    LLLVAR
-     * @lengthIndicator 2
      */
     protected $privateReserved8;
 
@@ -1380,7 +1336,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Private reserved 9"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved9;
 
@@ -1393,7 +1348,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Private reserved 10"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved10;
 
@@ -1406,7 +1360,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Private reserved 11"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved11;
 
@@ -1419,7 +1372,6 @@ class ISO8583 implements MessageSchemaInterface
      * @maxLength 999
      * @description "Private reserved 12"
      * @format    LLLVAR
-     * @lengthIndicator 3
      */
     protected $privateReserved12;
 

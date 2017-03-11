@@ -62,9 +62,9 @@ $parsedMessage = $message->parse($isoMessage);
 $schema = $schemaManager->getSchema();
 
 $messageDetail = [
-    'mti'    => $parsedMessage->getMti(),
-    'fields' => $schemaManager->getSetFields(),
-    'pan'    => $schema->getPan(),
+    'mti'  => $parsedMessage->getMti(),
+    'data' => $schemaManager->getData(),
+    'pan'  => $schema->getPan(),
 ];
 
 var_dump($messageDetail);

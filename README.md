@@ -5,6 +5,10 @@ A simple PHP ISO8583 pack and unpack library
 [![Coverage Status](https://coveralls.io/repos/github/kaperys/financial/badge.svg?branch=master)](https://coveralls.io/github/kaperys/financial?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+
+# Note: This library is in development and is not production-ready
+--
+
 ## Usage
 Packing the message
 ```php

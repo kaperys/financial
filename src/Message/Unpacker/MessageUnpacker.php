@@ -187,7 +187,9 @@ class MessageUnpacker extends AbstractPackUnpack
                     $this->shrink($message, $bitLengthIndicator);
                 }
 
-                $unpackedBit = $bitData->getMapper()->unpack(substr($message, 0, $bitReadLength));
+                $fieldData = substr($message, 0, $bitReadLength);
+
+                $unpackedBit = $bitData->getMapper()->unpack($fieldData);
 
                 $this->shrink($message, $bitReadLength);
 

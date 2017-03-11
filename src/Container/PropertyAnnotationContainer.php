@@ -96,11 +96,11 @@ class PropertyAnnotationContainer
     /**
      * Gets the length indicator for a variable length field
      *
-     * @return string|bool
+     * @return int
      */
-    public function getLengthIndicator(): string
+    public function getLengthIndicator(): int
     {
-        return isset($this->data['lengthindicator']) ? $this->data['lengthindicator'] : false;
+        return substr_count($this->getFormat(), 'L');
     }
 
     /**

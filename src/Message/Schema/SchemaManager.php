@@ -64,6 +64,22 @@ class SchemaManager
     }
 
     /**
+     * Returns an array of the set data on $this->schema
+     *
+     * @return array
+     */
+    public function getData(): array
+    {
+        $schemaData = [];
+
+        foreach ($this->getSetFields() as $field) {
+            $schemaData[$field] = $this->{$this->addPrefix($field, 'get')}();
+        }
+
+        return $schemaData;
+    }
+
+    /**
      * Returns an array of the fields set on $this->schema
      *
      * @return array
