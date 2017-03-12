@@ -33,22 +33,20 @@ class AlphanumericMapper implements MapperInterface
      */
     public function pack(string $data): string
     {
-        $packed = bin2hex($data);
+        $packedField = bin2hex($data);
 
         if (!$this->propertyAnnotationContainer->isFixedLength()) {
-            $lengthIndicator = $this->propertyAnnotationContainer->getLengthIndicator();
+            $variableFieldHeaderLength = bin2hex(
+                sprintf(
+                    '%0' . $this->propertyAnnotationContainer->getLengthIndicator() . 'd',
+                    strlen($packedField) / 2
+                )
+            );
 
-            $variableDataLength = (string) strlen($data);
-
-            // Since we're using hex2bin, $variableDataLength must be of even length
-            if (0 != $variableDataLength % 2) {
-                $variableDataLength = '0' . $variableDataLength;
-            }
-
-            $packed = str_pad(hex2bin($variableDataLength), $lengthIndicator * 2, 0, STR_PAD_LEFT) . $packed;
+            return $variableFieldHeaderLength . $packedField;
         }
 
-        return $packed;
+        return $packedField;
     }
 
     /**

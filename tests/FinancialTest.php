@@ -46,7 +46,7 @@ class FinancialTest extends TestCase
         $this->assertInstanceOf(MessagePacker::class, $messagePacker);
 
         $this->assertEquals(
-            '001e30323030400000000000000000031303239333834373536313933373439',
+            '001e303230304000000000000000313631303239333834373536313933373439',
             $messagePacker->generate()
         );
     }
