@@ -57,7 +57,7 @@ class PropertyAnnotationContainerTest extends TestCase
     /** @test */
     public function getLengthIndicator()
     {
-        $this->assertEquals(2, $this->construct(['lengthindicator' => 2])->getLengthIndicator());
+        $this->assertEquals(2, $this->construct(['format' => 'LLVAR'])->getLengthIndicator());
     }
 
     /** @test */

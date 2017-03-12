@@ -30,7 +30,6 @@ class CacheFileTest extends TestCase
             'maxlength'       => 19,
             'description'     => 'Primary account number (PAN)',
             'format'          => 'LLVAR',
-            'lengthindicator' => 2,
             'property'        => 'pan',
         ];
 
@@ -51,7 +50,6 @@ class CacheFileTest extends TestCase
             'maxlength'       => 19,
             'description'     => 'Primary account number (PAN)',
             'format'          => 'LLVAR',
-            'lengthindicator' => 2,
             'property'        => 'pan',
         ];
 
@@ -72,7 +70,6 @@ class CacheFileTest extends TestCase
             'maxlength'       => 19,
             'description'     => 'Primary account number (PAN)',
             'format'          => 'LLVAR',
-            'lengthindicator' => 2,
             'property'        => 'pan',
         ];
 
