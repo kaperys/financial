@@ -37,6 +37,8 @@ class FinancialTest extends TestCase
         $schemaManager = new SchemaManager(new ISO8583(), $cacheManager);
 
         $schemaManager->setPan(self::DUMMY_PAN);
+        $schemaManager->setCurrencyCodeCardholderBilling('GBP');
+        $schemaManager->setPrivateReserved6('sample');
 
         $messagePacker = (new Financial($cacheManager))->pack($schemaManager);
 
@@ -46,7 +48,7 @@ class FinancialTest extends TestCase
         $this->assertInstanceOf(MessagePacker::class, $messagePacker);
 
         $this->assertEquals(
-            '001e303230304000000000000000313631303239333834373536313933373439',
+            '003230323030c000000000002000000000000000008031363130323933383437353631393337343947425030303673616d706c65',
             $messagePacker->generate()
         );
     }
