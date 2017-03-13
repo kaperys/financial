@@ -82,7 +82,11 @@ class CacheManager
         $cacheFilePath = $this->getConfiguration('cacheDirectory') . DIRECTORY_SEPARATOR .
             $schemaClass->getName() . DIRECTORY_SEPARATOR . self::CACHED_SCHEMA_FILE_NAME;
 
-        if (file_exists($cacheFilePath) && is_readable($cacheFilePath)) {
+        if (!file_exists($cacheFilePath)) {
+            $this->generateSchemaCache($schemaClass);
+        }
+
+        if (is_readable($cacheFilePath)) {
             return new CacheFile(file_get_contents($cacheFilePath));
         }
 

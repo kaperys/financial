@@ -87,3 +87,6 @@ fabric.properties
 
 ### Build ###
 /build/
+
+### Cache ###
+/cache/
