@@ -6,10 +6,10 @@ A simple PHP ISO8583 pack and unpack library
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
-# Note: This library is in development and is not production-ready
+## Note: This library is in development and is not production-ready
 
 
-## Usage
+## Basic Usage
 Packing the message
 ```php
 $cacheManager = new CacheManager();
@@ -19,13 +19,13 @@ $cacheManager->generateSchemaCache(new ISO8583());
 $schemaManager = new SchemaManager(new ISO8583(), $cacheManager);
 
 $schemaManager->setCurrencyCodeCardholderBilling('GBP');
-$schemaManager->setPrivateReserved6('sample');
+$schemaManager->setPrivateReserved6('Your topup was successful');
 
 /** @var MessagePacker $message */
 $message = (new Financial($cacheManager))->pack($schemaManager);
 
 $message->setHeaderLength(2);
-$message->setMti(0200);
+$message->setMti('0200');
 
 echo $message->generate();
 ```
@@ -52,15 +52,31 @@ echo $schema->getCardAcceptorNameLocation();
 ```
 
 ## Installation
+Install the latest version with Composer:
 ```bash
 composer require kaperys/financial
 ```
 
-## Contributing
-..
+## About
+kaperys/financial is a simple PHP ISO8583 message pack/unpack library, capable of supporting multiple message schemas and versions. 
 
-## Issues
-..
+### Requirements
+ - PHP v7.0+
+ 
+### Documentation
+ - [Usage](https://github.com/kaperys/financial/doc/usage.md)
+ - [Schemas](https://github.com/kaperys/financial/doc/schemas.md)
 
-## Change Log
-..
+### Issues
+Please use the [GitHub](https://github.com/kaperys/financial/issues) issue tracker to report bugs.
+
+### Contributing
+Please use the [HubFlow](https://datasift.github.io/gitflow/) branching strategy to contribute work, using the GitHub issue tracker ID as your branch key. For example, feature/1_ComposerSupport.
+
+If you would like to contribute to core (non-ticketed) work, please grep the codebase for `@todo`.
+
+### Author
+Mike Kaperys - <mike@kaperys.io> <https://kaperys.io>
+
+### License
+kaperys/financial is licensed under the MIT License - see the `LICENSE` file for details
