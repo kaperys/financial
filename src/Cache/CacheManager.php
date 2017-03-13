@@ -42,7 +42,7 @@ class CacheManager
      *
      * @param MessageSchemaInterface $schemaClass the class to generate schema for
      *
-     * @return bool has the cache file been successfully generated?
+     * @return CacheFile|false CacheFile, or false if not found
      *
      * @throws CacheWriterException if the cache file cannot be written
      */
@@ -64,6 +64,8 @@ class CacheManager
         if (!file_put_contents($cachePath, json_encode($schemaPropertyAnnotations))) {
             throw new CacheWriterException('Cannot write cache file: ' . $cachePath);
         }
+
+        return $this->getSchemaCache($schemaClass);
     }
 
     /**

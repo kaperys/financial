@@ -4,8 +4,6 @@ namespace Kaperys\Financial\Message\Schema;
 
 use Kaperys\Financial\Message\Schema\Exception\MessageTypeIndicator\ClassNotFoundException;
 use Kaperys\Financial\Message\Schema\Exception\MessageTypeIndicator\CommunicatorNotFoundException;
-use Kaperys\Financial\Message\Schema\Exception\MessageTypeIndicator\FunctionNotFoundException;
-use Kaperys\Financial\Message\Schema\Exception\MessageTypeIndicator\VersionNotFoundException;
 
 /**
  * Class MessageTypeIndicator
@@ -91,17 +89,10 @@ class MessageTypeIndicator
      * Gets the message version
      *
      * @return string
-     *
-     * @throws VersionNotFoundException if the message version is not found
      */
     public function getVersion()
     {
-        $version = substr($this->mti, self::MTI_VERSION_INDEX, 1);
-        if (array_key_exists($version, self::MTI_VERSION_MAP)) {
-            return self::MTI_VERSION_MAP[$version];
-        }
-
-        throw new VersionNotFoundException('Version ' . $version . ' was not found in the version map');
+        return self::MTI_VERSION_MAP[substr($this->mti, self::MTI_VERSION_INDEX, 1)];
     }
 
     /**
@@ -125,17 +116,10 @@ class MessageTypeIndicator
      * Gets the message function
      *
      * @return string
-     *
-     * @throws FunctionNotFoundException if the message version is not found
      */
     public function getFunction()
     {
-        $function = substr($this->mti, self::MTI_FUNCTION_INDEX, 1);
-        if (array_key_exists($function, self::MTI_FUNCTION_MAP)) {
-            return self::MTI_FUNCTION_MAP[$function];
-        }
-
-        throw new FunctionNotFoundException('Function ' . $function . ' was not found in the function map');
+        return self::MTI_FUNCTION_MAP[substr($this->mti, self::MTI_FUNCTION_INDEX, 1)];
     }
 
     /**
