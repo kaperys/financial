@@ -57,7 +57,8 @@ class MessagePacker extends AbstractPackUnpack
      */
     protected function parseMessageLengthHeader(string $message): string
     {
-        return str_pad(dechex((strlen($message) / 2)), ($this->getHeaderLength() * 2), 0, STR_PAD_LEFT);
+        return ($this->getHeaderLength() > 0) ?
+            str_pad(dechex((strlen($message) / 2)), ($this->getHeaderLength() * 2), 0, STR_PAD_LEFT) : '';
     }
 
     /**

@@ -48,13 +48,16 @@ class MessageUnpacker extends AbstractPackUnpack
     public function parse(string $message): MessageUnpacker
     {
         // Parse the message length header
-        $messageLengthHeader = $this->parseMessageLengthHeader($message);
-        $this->shrink($message, ($this->getHeaderLength() * 2));
+        if ($this->getHeaderLength() > 0) {
+            $messageLengthHeader = $this->parseMessageLengthHeader($message);
+            $this->shrink($message, ($this->getHeaderLength() * 2));
 
-        if (($messageLengthHeader - $this->getHeaderLength()) != (strlen($message) / 2)) {
-            throw new MessageLengthHeaderException(
-                'Message length should be ' . $messageLengthHeader . ', but ' . (strlen($message) / 2) . ' was found'
-            );
+            if (($messageLengthHeader - $this->getHeaderLength()) != (strlen($message) / 2)) {
+                throw new MessageLengthHeaderException(
+                    'Message length should be ' . $messageLengthHeader . ', but ' .
+                    (strlen($message) / 2) . ' was found'
+                );
+            }
         }
 
         // Parse the message type indicator
