@@ -104,7 +104,42 @@ class PropertyAnnotationContainerTest extends TestCase
     {
         $this->assertInstanceOf(
             AlphanumericMapper::class,
+            $this->construct(['display' => 'a'])->getMapper()
+        );
+
+        $this->assertInstanceOf(
+            AlphanumericMapper::class,
+            $this->construct(['display' => 'n'])->getMapper()
+        );
+
+        $this->assertInstanceOf(
+            AlphanumericMapper::class,
+            $this->construct(['display' => 's'])->getMapper()
+        );
+
+        $this->assertInstanceOf(
+            AlphanumericMapper::class,
+            $this->construct(['display' => 'an'])->getMapper()
+        );
+
+        $this->assertInstanceOf(
+            AlphanumericMapper::class,
+            $this->construct(['display' => 'as'])->getMapper()
+        );
+
+        $this->assertInstanceOf(
+            AlphanumericMapper::class,
+            $this->construct(['display' => 'ns'])->getMapper()
+        );
+
+        $this->assertInstanceOf(
+            AlphanumericMapper::class,
             $this->construct(['display' => 'ans'])->getMapper()
+        );
+
+        $this->assertInstanceOf(
+            AlphanumericMapper::class,
+            $this->construct(['display' => 'z'])->getMapper()
         );
 
         $this->assertInstanceOf(
