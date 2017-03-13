@@ -64,8 +64,8 @@ kaperys/financial is a simple PHP ISO8583 message pack/unpack library, capable o
  - PHP v7.0+
  
 ### Documentation
- - [Usage](https://github.com/kaperys/financial/doc/usage.md)
- - [Schemas](https://github.com/kaperys/financial/doc/schemas.md)
+ - [Usage](doc/01-usage.md)
+ - [Schemas](doc/02-schemas.md)
 
 ### Issues
 Please use the [GitHub](https://github.com/kaperys/financial/issues) issue tracker to report bugs.
@@ -76,7 +76,7 @@ Please use the [HubFlow](https://datasift.github.io/gitflow/) branching strategy
 If you would like to contribute to core (non-ticketed) work, please grep the codebase for `@todo`.
 
 ### Author
-Mike Kaperys - <mike@kaperys.io> <https://kaperys.io>
+Mike Kaperys - <mike@kaperys.io> - <https://kaperys.io>
 
 ### License
 kaperys/financial is licensed under the MIT License - see the `LICENSE` file for details
