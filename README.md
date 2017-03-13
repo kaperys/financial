@@ -1,13 +1,9 @@
-# kaperys/financial
+# kaperys/financial (work-in-progress)
 A simple PHP ISO8583 pack and unpack library
 
 [![Build Status](https://travis-ci.org/kaperys/financial.svg?branch=master)](https://travis-ci.org/kaperys/financial)
 [![Coverage Status](https://coveralls.io/repos/github/kaperys/financial/badge.svg?branch=master)](https://coveralls.io/github/kaperys/financial?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-
-## Note: This library is in development and is not production-ready
-
 
 ## Basic Usage
 Packing the message
@@ -64,8 +60,10 @@ kaperys/financial is a simple PHP ISO8583 message pack/unpack library, capable o
  - PHP v7.0+
  
 ### Documentation
+ - [Introduction and Concepts](00-introduction-and-concepts.md)
  - [Usage](doc/01-usage.md)
- - [Schemas](doc/02-schemas.md)
+ - [Caching](doc/02-caching.md)
+ - [Schemas](doc/03-schemas.md)
 
 ### Issues
 Please use the [GitHub](https://github.com/kaperys/financial/issues) issue tracker to report bugs.
@@ -73,10 +71,13 @@ Please use the [GitHub](https://github.com/kaperys/financial/issues) issue track
 ### Contributing
 Please use the [HubFlow](https://datasift.github.io/gitflow/) branching strategy to contribute work, using the GitHub issue tracker ID as your branch key. For example, feature/1_ComposerSupport.
 
-If you would like to contribute to core (non-ticketed) work, please grep the codebase for `@todo`.
+If you would like to contribute to core (non-issue) work, please grep the codebase for `@todo`.
 
 ### Author
 Mike Kaperys - <mike@kaperys.io> - <https://kaperys.io>
 
 ### License
 kaperys/financial is licensed under the MIT License - see the `LICENSE` file for details
+
+## Change Log
+See [changelog.md](changelog.md)
