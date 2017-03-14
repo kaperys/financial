@@ -54,7 +54,7 @@ class MessageUnpacker extends AbstractPackUnpack
 
             if (($messageLengthHeader - $this->getHeaderLength()) != (strlen($message) / 2)) {
                 throw new MessageLengthHeaderException(
-                    'Message length should be ' . $messageLengthHeader . ', but ' .
+                    'Message length should be ' . ($messageLengthHeader - $this->getHeaderLength()) . ', but ' .
                     (strlen($message) / 2) . ' was found'
                 );
             }

@@ -64,6 +64,7 @@ kaperys/financial is a simple PHP ISO8583 message pack/unpack library, capable o
  - [Usage](doc/01-usage.md)
  - [Caching](doc/02-caching.md)
  - [Schemas](doc/03-schemas.md)
+ - [Development](doc/04-development.md)
 
 ### Issues
 Please use the [GitHub](https://github.com/kaperys/financial/issues) issue tracker to report bugs.

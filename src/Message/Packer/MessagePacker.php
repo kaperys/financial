@@ -53,12 +53,20 @@ class MessagePacker extends AbstractPackUnpack
      *
      * @param string $message the packed message
      *
-     * @return string the message length header (in hex)
+     * @return string the message length header
      */
     protected function parseMessageLengthHeader(string $message): string
     {
-        return ($this->getHeaderLength() > 0) ?
-            str_pad(dechex((strlen($message) / 2)), ($this->getHeaderLength() * 2), 0, STR_PAD_LEFT) : '';
+        if ($this->getHeaderLength() > 0) {
+            return (string) str_pad(
+                dechex((strlen($message) / 2) + $this->getHeaderLength()),
+                ($this->getHeaderLength() * 2),
+                0,
+                STR_PAD_LEFT
+            );
+        }
+
+        return '';
     }
 
     /**
