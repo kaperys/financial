@@ -1,0 +1,35 @@
+{
+    "name": "kaperys/financial",
+    "description": "A simple PHP ISO8583 pack and unpack library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Kaperys",
+            "email": "mike@kaperys.io"
+        }
+    ],
+    "require": {
+        "php": "~7.0",
+        "zeptech/annotations": "^1.1",
+        "tightenco/collect": "^5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0",
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kaperys\\Financial\\": "src/",
+            "Kaperys\\Financial\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

@@ -1,0 +1,28 @@
+language: php
+
+php:
+  - 7.0
+
+matrix:
+  fast_finish: true
+
+before_script:
+  - composer self-update
+  - composer install --dev --prefer-source
+  - mkdir -p build/logs cache/ISO8583
+
+script:
+  - vendor/bin/phpunit
+
+after_script:
+  - php vendor/bin/coveralls -v
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.cache/composer
