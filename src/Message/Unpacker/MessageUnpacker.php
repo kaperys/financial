@@ -174,8 +174,7 @@ class MessageUnpacker extends AbstractPackUnpack
             if ($bitmap[$i] === "1") {
                 $bit = $i + 1;
 
-                // @todo: Do we need the || $bit === 65 ?
-                if ($bit === 1 || $bit === 65) {
+                if ($bit === 1 || $bit === 65 || $bit === 129) {
                     continue;
                 }
 

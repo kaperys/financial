@@ -1,4 +1,4 @@
-# kaperys/financial (work-in-progress)
+# kaperys/financial
 A simple PHP ISO8583 pack and unpack library
 
 [![Build Status](https://travis-ci.org/kaperys/financial.svg?branch=master)](https://travis-ci.org/kaperys/financial)
@@ -82,3 +82,6 @@ kaperys/financial is licensed under the MIT License - see the `LICENSE` file for
 
 ## Change Log
 See [changelog.md](changelog.md)
+
+## Roadmap
+See [roadmap.md](roadmap.md)

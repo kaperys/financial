@@ -2,6 +2,7 @@
 
 namespace Kaperys\Financial\Message\Mapper;
 
+use DateTime;
 use Kaperys\Financial\Container\PropertyAnnotationContainer;
 
 /**
@@ -32,9 +33,18 @@ class BinaryMapper implements MapperInterface
      */
     public function pack(string $data): string
     {
-        // By this point we know the data is correct and valid, so just pack
+        $packedField = bin2hex($data);
 
-        return 'packed data - binary mapper';
+        if (!$this->propertyAnnotationContainer->isFixedLength()) {
+            $variableFieldHeaderLength = sprintf(
+                '%0' . $this->propertyAnnotationContainer->getLengthIndicator() . 'd',
+                strlen($packedField) / 2
+            );
+
+            return $variableFieldHeaderLength . $packedField;
+        }
+
+        return $packedField;
     }
 
     /**
@@ -42,8 +52,12 @@ class BinaryMapper implements MapperInterface
      */
     public function unpack(string $data)
     {
-        // TODO: Implement unpack() method.
+        $parsedData = hex2bin($data);
 
-        return $data;
+        if ('DateTime' == $this->propertyAnnotationContainer->getType()) {
+            $parsedData = DateTime::createFromFormat($this->propertyAnnotationContainer->getFormat(), $parsedData);
+        }
+
+        return $parsedData;
     }
 }

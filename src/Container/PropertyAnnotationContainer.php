@@ -2,6 +2,7 @@
 
 namespace Kaperys\Financial\Container;
 
+use Kaperys\Financial\Message\Constants\Display;
 use Kaperys\Financial\Message\Mapper\AlphanumericMapper;
 use Kaperys\Financial\Message\Mapper\BinaryMapper;
 use Kaperys\Financial\Message\Mapper\Exception\MapperNotFoundException;
@@ -173,17 +174,17 @@ class PropertyAnnotationContainer
     public function getMapper(): MapperInterface
     {
         switch ($this->getDisplay()) {
-            case 'a':
-            case 'n':
-            case 's':
-            case 'an':
-            case 'as':
-            case 'ns':
-            case 'ans':
-            case 'z':
+            case Display::ALPHA:
+            case Display::NUMERIC:
+            case Display::SPECIAL:
+            case Display::ALPHA_NUMERIC:
+            case Display::ALPHA_SPECIAL:
+            case Display::NUMERIC_SPECIAL:
+            case Display::ALPHA_NUMERIC_SPECIAL:
+            case Display::TRACK_DATA:
                 return new AlphanumericMapper($this);
                 break;
-            case 'b':
+            case Display::BINARY:
                 return new BinaryMapper($this);
                 break;
             default:

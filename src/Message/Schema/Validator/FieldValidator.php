@@ -47,22 +47,45 @@ class FieldValidator
     {
         if ($propertyAnnotationContainer->getType() == 'DateTime') {
             if (!$data instanceof DateTime) {
-                throw new FieldValidationException(
+                $exception = new FieldValidationException(
                     'Bit ' . $propertyAnnotationContainer->getBit() . ' should be an instance of DateTime'
                 );
+
+                $exception->setData($data);
+                $exception->setPropertyAnnotationContainer($propertyAnnotationContainer);
+
+                throw $exception;
             }
 
             return true;
         }
 
-        // @todo: Implement this validation
+        // @todo: Complete this display-based validation
 
         if (Display::ALPHA == $propertyAnnotationContainer->getDisplay()) {
-            // Regex, throw
+            if (!ctype_alpha($data)) {
+                $exception = new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should contain only alpha characters'
+                );
+
+                $exception->setData($data);
+                $exception->setPropertyAnnotationContainer($propertyAnnotationContainer);
+
+                throw $exception;
+            }
         }
 
         if (Display::NUMERIC == $propertyAnnotationContainer->getDisplay()) {
-            // Regex, throw
+            if (!ctype_digit($data)) {
+                $exception = new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should contain only numeric characters'
+                );
+
+                $exception->setData($data);
+                $exception->setPropertyAnnotationContainer($propertyAnnotationContainer);
+
+                throw $exception;
+            }
         }
 
         if (Display::SPECIAL == $propertyAnnotationContainer->getDisplay()) {
@@ -70,7 +93,16 @@ class FieldValidator
         }
 
         if (Display::ALPHA_NUMERIC == $propertyAnnotationContainer->getDisplay()) {
-            // Regex, throw
+            if (!ctype_alnum($data)) {
+                $exception = new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should contain only numeric characters'
+                );
+
+                $exception->setData($data);
+                $exception->setPropertyAnnotationContainer($propertyAnnotationContainer);
+
+                throw $exception;
+            }
         }
 
         if (Display::ALPHA_SPECIAL == $propertyAnnotationContainer->getDisplay()) {
@@ -86,11 +118,29 @@ class FieldValidator
         }
 
         if (Display::BINARY == $propertyAnnotationContainer->getDisplay()) {
-            // Regex, throw
+            if (preg_match('/[^01]/', $data)) {
+                $exception = new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be binary'
+                );
+
+                $exception->setData($data);
+                $exception->setPropertyAnnotationContainer($propertyAnnotationContainer);
+
+                throw $exception;
+            }
         }
 
         if (Display::TRACK_DATA == $propertyAnnotationContainer->getDisplay()) {
-            // Regex, throw
+            if (strpos($data, '=') == false) {
+                $exception = new FieldValidationException(
+                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be valid track data'
+                );
+
+                $exception->setData($data);
+                $exception->setPropertyAnnotationContainer($propertyAnnotationContainer);
+
+                throw $exception;
+            }
         }
 
         return true;

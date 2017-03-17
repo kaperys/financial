@@ -3,6 +3,7 @@
 namespace Kaperys\Financial\Message\Schema\Validator\Exception;
 
 use Exception;
+use Kaperys\Financial\Container\PropertyAnnotationContainer;
 
 /**
  * Thrown when the schema field validation fails
@@ -15,5 +16,59 @@ use Exception;
  */
 class FieldValidationException extends Exception
 {
-    // @todo: Add some helper methods here to debug what actually failed validation
+
+    /** @var PropertyAnnotationContainer $propertyAnnotationContainer the annotation container (validation rules) */
+    protected $propertyAnnotationContainer;
+
+    /** @var mixed $data the data that failed validation */
+    protected $data;
+
+    /**
+     * Gets the property annotation container
+     *
+     * @return PropertyAnnotationContainer
+     */
+    public function getPropertyAnnotationContainer(): PropertyAnnotationContainer
+    {
+        return $this->propertyAnnotationContainer;
+    }
+
+    /**
+     * Sets the property annotation container
+     *
+     * @param PropertyAnnotationContainer $propertyAnnotationContainer
+     *
+     * @return FieldValidationException
+     */
+    public function setPropertyAnnotationContainer(
+        PropertyAnnotationContainer $propertyAnnotationContainer
+    ): FieldValidationException {
+        $this->propertyAnnotationContainer = $propertyAnnotationContainer;
+
+        return $this;
+    }
+
+    /**
+     * Gets the data
+     *
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Sets the data
+     *
+     * @param mixed $data
+     *
+     * @return FieldValidationException
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
 }
