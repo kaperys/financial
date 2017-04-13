@@ -13,7 +13,7 @@ use Kaperys\Financial\Message\Unpacker\Exception\MessageLengthHeaderException;
  *
  * @package Kaperys\Financial\Message\Unpacker
  *
- * @auhtor  Mike Kaperys <mike@kaperys.io>
+ * @author  Mike Kaperys <mike@kaperys.io>
  */
 class MessageUnpacker extends AbstractPackUnpack
 {
