@@ -15,7 +15,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+        "squizlabs/php_codesniffer": "^2.8"
     },
     "autoload": {
         "psr-4": {
@@ -24,7 +25,9 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit",
+        "code-style": "./vendor/bin/phpcs --standard=build/phpcs.xml src",
+        "code-style-fix": "./vendor/bin/phpbf src"
     },
     "config": {
         "preferred-install": "dist",
