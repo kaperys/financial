@@ -43,6 +43,7 @@ abstract class AbstractPackUnpack
     {
         return $this->headerLength;
     }
+    
     /**
      * Sets the message type indicator
      *

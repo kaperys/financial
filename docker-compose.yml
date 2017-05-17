@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  financial:
+    container_name: financial
+    hostname: financial
+    build: .
+    volumes:
+     - .:/var/cli/financial

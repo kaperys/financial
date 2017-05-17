@@ -13,7 +13,7 @@ use Kaperys\Financial\Message\Unpacker\Exception\MessageLengthHeaderException;
  *
  * @package Kaperys\Financial\Message\Unpacker
  *
- * @auhtor  Mike Kaperys <mike@kaperys.io>
+ * @author  Mike Kaperys <mike@kaperys.io>
  */
 class MessageUnpacker extends AbstractPackUnpack
 {
@@ -108,7 +108,7 @@ class MessageUnpacker extends AbstractPackUnpack
      *
      * @param string $message
      *
-     * @return string
+     * @return string the parsed message length header
      */
     protected function parseMessageLengthHeader(string $message): string
     {
@@ -120,7 +120,7 @@ class MessageUnpacker extends AbstractPackUnpack
      *
      * @param string $message
      *
-     * @return string
+     * @return string the parsed MTI
      */
     protected function parseMti(string $message): string
     {
@@ -132,7 +132,7 @@ class MessageUnpacker extends AbstractPackUnpack
      *
      * @param string $message
      *
-     * @return string
+     * @return string the parsed bitmap
      */
     protected function parseBitmap(string $message): string
     {
@@ -162,7 +162,7 @@ class MessageUnpacker extends AbstractPackUnpack
      * @param string $bitmap  the message bitmap
      * @param string $message the message data element
      *
-     * @return array
+     * @return array the parsed data element
      */
     protected function parseDataElement(string $bitmap, string $message): array
     {
