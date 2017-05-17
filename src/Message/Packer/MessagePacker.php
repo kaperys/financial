@@ -108,6 +108,7 @@ class MessagePacker extends AbstractPackUnpack
                 }
 
                 $binaryBitmap[0] = 1;
+
                 $presentBitmaps['secondary'] = true;
             }
 
@@ -117,13 +118,15 @@ class MessagePacker extends AbstractPackUnpack
                 }
 
                 $binaryBitmap[64] = 1;
+
                 $presentBitmaps['tertiary'] = true;
             }
 
             $binaryBitmap[($bit - 1)] = 1;
         }
 
-        for ($i = 0; $i < strlen($binaryBitmap); $i += 4) {
+        $bitmapLength = strlen($binaryBitmap);
+        for ($i = 0; $i < $bitmapLength; $i += 4) {
             $bitmap .= sprintf('%01x', base_convert(substr($binaryBitmap, $i, 4), 2, 10));
         }
 

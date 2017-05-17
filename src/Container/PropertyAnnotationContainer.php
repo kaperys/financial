@@ -183,10 +183,8 @@ class PropertyAnnotationContainer
             case Display::ALPHA_NUMERIC_SPECIAL:
             case Display::TRACK_DATA:
                 return new AlphanumericMapper($this);
-                break;
             case Display::BINARY:
                 return new BinaryMapper($this);
-                break;
             default:
                 throw new MapperNotFoundException('Mapper not found for display ' . $this->getDisplay());
         }
