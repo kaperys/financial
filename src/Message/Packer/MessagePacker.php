@@ -37,7 +37,7 @@ class MessagePacker extends AbstractPackUnpack
     /**
      * Generates the packed message
      *
-     * @return string
+     * @return string the packed message
      */
     public function generate(): string
     {
@@ -72,7 +72,7 @@ class MessagePacker extends AbstractPackUnpack
     /**
      * Parses the message type indicator
      *
-     * @return string
+     * @return string the parsed MTI
      */
     protected function parseMti(): string
     {
@@ -84,7 +84,7 @@ class MessagePacker extends AbstractPackUnpack
      *
      * @param array $setFields set fields on the schema
      *
-     * @return string
+     * @return string the parsed bitmap
      */
     protected function parseBitmap(array $setFields): string
     {
@@ -135,7 +135,7 @@ class MessagePacker extends AbstractPackUnpack
      *
      * @param array $setFields set fields on the schema
      *
-     * @return string
+     * @return string the parsed data element
      */
     protected function parseDataElement(array $setFields): string
     {
