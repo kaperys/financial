@@ -67,12 +67,14 @@ class MessageUnpacker extends AbstractPackUnpack
         // Parse the bitmap
         $bitmap = $this->parseBitmap($message);
 
+        $numberOfBitmaps = 1;
+
         if (strlen($bitmap) > 64) {
             $numberOfBitmaps = 2;
-        } elseif (strlen($bitmap) > 128) {
+        }
+
+        if (strlen($bitmap) > 128) {
             $numberOfBitmaps = 3;
-        } else {
-            $numberOfBitmaps = 1;
         }
 
         // Message without bitmaps
