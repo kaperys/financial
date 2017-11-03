@@ -2,8 +2,6 @@
 
 namespace Kaperys\Financial\Message\Schema;
 
-use DateTime;
-
 /**
  * Class ISO8583 (1987 spec)
  *
@@ -70,7 +68,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $amountCardholderBilling;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     7
      * @display n
@@ -121,7 +119,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $systemsTraceAuditNumber;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     12
      * @display n
@@ -132,7 +130,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $localTransactionTime;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     13
      * @display n
@@ -143,7 +141,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $localTransactionDate;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     14
      * @display n
@@ -154,7 +152,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $expirationDate;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     15
      * @display n
@@ -165,7 +163,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $settlementDate;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     16
      * @display n
@@ -176,7 +174,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $conversionDate;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     17
      * @display n
@@ -767,7 +765,7 @@ class ISO8583 implements MessageSchemaInterface
     protected $messageNumberLast;
 
     /**
-     * @var DateTime
+     * @var string
      *
      * @bit     73
      * @display n
@@ -1481,19 +1479,19 @@ class ISO8583 implements MessageSchemaInterface
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getTransmissionDateTime(): DateTime
+    public function getTransmissionDateTime(): string
     {
         return $this->transmissionDateTime;
     }
 
     /**
-     * @param DateTime $transmissionDateTime
+     * @param string $transmissionDateTime
      *
      * @return ISO8583
      */
-    public function setTransmissionDateTime(DateTime $transmissionDateTime): ISO8583
+    public function setTransmissionDateTime(string $transmissionDateTime): ISO8583
     {
         $this->transmissionDateTime = $transmissionDateTime;
         return $this;
@@ -1576,114 +1574,114 @@ class ISO8583 implements MessageSchemaInterface
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getLocalTransactionTime(): DateTime
+    public function getLocalTransactionTime(): string
     {
         return $this->localTransactionTime;
     }
 
     /**
-     * @param DateTime $localTransactionTime
+     * @param string $localTransactionTime
      *
      * @return ISO8583
      */
-    public function setLocalTransactionTime(DateTime $localTransactionTime): ISO8583
+    public function setLocalTransactionTime(string $localTransactionTime): ISO8583
     {
         $this->localTransactionTime = $localTransactionTime;
         return $this;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getLocalTransactionDate(): DateTime
+    public function getLocalTransactionDate(): string
     {
         return $this->localTransactionDate;
     }
 
     /**
-     * @param DateTime $localTransactionDate
+     * @param string $localTransactionDate
      *
      * @return ISO8583
      */
-    public function setLocalTransactionDate(DateTime $localTransactionDate): ISO8583
+    public function setLocalTransactionDate(string $localTransactionDate): ISO8583
     {
         $this->localTransactionDate = $localTransactionDate;
         return $this;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getExpirationDate(): DateTime
+    public function getExpirationDate(): string
     {
         return $this->expirationDate;
     }
 
     /**
-     * @param DateTime $expirationDate
+     * @param string $expirationDate
      *
      * @return ISO8583
      */
-    public function setExpirationDate(DateTime $expirationDate): ISO8583
+    public function setExpirationDate(string $expirationDate): ISO8583
     {
         $this->expirationDate = $expirationDate;
         return $this;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getSettlementDate(): DateTime
+    public function getSettlementDate(): string
     {
         return $this->settlementDate;
     }
 
     /**
-     * @param DateTime $settlementDate
+     * @param string $settlementDate
      *
      * @return ISO8583
      */
-    public function setSettlementDate(DateTime $settlementDate): ISO8583
+    public function setSettlementDate(string $settlementDate): ISO8583
     {
         $this->settlementDate = $settlementDate;
         return $this;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getConversionDate(): DateTime
+    public function getConversionDate(): string
     {
         return $this->conversionDate;
     }
 
     /**
-     * @param DateTime $conversionDate
+     * @param string $conversionDate
      *
      * @return ISO8583
      */
-    public function setConversionDate(DateTime $conversionDate): ISO8583
+    public function setConversionDate(string $conversionDate): ISO8583
     {
         $this->conversionDate = $conversionDate;
         return $this;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getCaptureDate(): DateTime
+    public function getCaptureDate(): string
     {
         return $this->captureDate;
     }
 
     /**
-     * @param DateTime $captureDate
+     * @param string $captureDate
      *
      * @return ISO8583
      */
-    public function setCaptureDate(DateTime $captureDate): ISO8583
+    public function setCaptureDate(string $captureDate): ISO8583
     {
         $this->captureDate = $captureDate;
         return $this;
@@ -2716,19 +2714,19 @@ class ISO8583 implements MessageSchemaInterface
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getDateAction(): DateTime
+    public function getDateAction(): string
     {
         return $this->dateAction;
     }
 
     /**
-     * @param DateTime $dateAction
+     * @param string $dateAction
      *
      * @return ISO8583
      */
-    public function setDateAction(DateTime $dateAction): ISO8583
+    public function setDateAction(string $dateAction): ISO8583
     {
         $this->dateAction = $dateAction;
         return $this;
