@@ -32,7 +32,9 @@ $schemaManager = new SchemaManager(new ISO8583(), $cacheManager);
  *    We are now able to set fields on the message schema through the schema manager (with the help of type hinting).
  *    The schema manager will log the fields we set in preparation for packing the generated message.
  */
+$schemaManager->setProcessingCode(123625);
 $schemaManager->setCurrencyCodeCardholderBilling('GBP');
+$schemaManager->setLocalTransactionTime((new DateTime("now"))->format("His"));
 $schemaManager->setPrivateReserved6('sample');
 
 /*

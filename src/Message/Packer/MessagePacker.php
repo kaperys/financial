@@ -142,17 +142,19 @@ class MessagePacker extends AbstractPackUnpack
      */
     protected function parseDataElement(array $setFields): string
     {
-        ksort($setFields);
-
         $schemaCache = $this->cacheManager->getSchemaCache($this->schemaManager->getSchema());
+        $dataCache   = [];
 
-        $dataElement = '';
         foreach ($setFields as $field) {
             $fieldData = $schemaCache->getDataForProperty($field);
 
-            $dataElement .= $fieldData->getMapper()->pack($this->schemaManager->{$fieldData->getGetterName()}());
+            $dataCache[$fieldData->getBit()] = $fieldData->getMapper()->pack(
+                $this->schemaManager->{$fieldData->getGetterName()}()
+            );
         }
 
-        return $dataElement;
+        ksort($dataCache);
+
+        return implode("", $dataCache);
     }
 }
