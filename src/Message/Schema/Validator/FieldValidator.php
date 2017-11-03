@@ -2,7 +2,6 @@
 
 namespace Kaperys\Financial\Message\Schema\Validator;
 
-use DateTime;
 use Kaperys\Financial\Container\PropertyAnnotationContainer;
 use Kaperys\Financial\Message\Constants\Display;
 use Kaperys\Financial\Message\Schema\Validator\Exception\FieldValidationException;
@@ -45,21 +44,6 @@ class FieldValidator
      */
     protected function validateType(PropertyAnnotationContainer $propertyAnnotationContainer, $data): bool
     {
-        if ($propertyAnnotationContainer->getType() == 'DateTime') {
-            if (!$data instanceof DateTime) {
-                $exception = new FieldValidationException(
-                    'Bit ' . $propertyAnnotationContainer->getBit() . ' should be an instance of DateTime'
-                );
-
-                $exception->setData($data);
-                $exception->setPropertyAnnotationContainer($propertyAnnotationContainer);
-
-                throw $exception;
-            }
-
-            return true;
-        }
-
         // @todo: Complete this display-based validation
 
         if (Display::ALPHA == $propertyAnnotationContainer->getDisplay()) {
@@ -158,10 +142,6 @@ class FieldValidator
      */
     protected function validateFixedLengthField(PropertyAnnotationContainer $propertyAnnotationContainer, $data): bool
     {
-        if ('DateTime' == $propertyAnnotationContainer->getType()) {
-            return true;
-        }
-
         if ($propertyAnnotationContainer->getLength() != strlen($data)) {
             throw new FieldValidationException(
                 'Bit ' . $propertyAnnotationContainer->getBit() . ' should be length ' .
@@ -186,10 +166,6 @@ class FieldValidator
         PropertyAnnotationContainer $propertyAnnotationContainer,
         $data
     ): bool {
-        if ('DateTime' == $propertyAnnotationContainer->getType()) {
-            return true;
-        }
-
         if (strlen($data) > $propertyAnnotationContainer->getMaxLength() ||
             strlen($data) < $propertyAnnotationContainer->getMinLength()
         ) {
