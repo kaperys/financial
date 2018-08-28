@@ -105,7 +105,7 @@ class CacheManager
      */
     protected function setConfiguration(array $configuration)
     {
-        $this->config = array_merge($configuration, $this->config);
+        $this->config = array_merge($this->config, $configuration);
     }
 
     /**
