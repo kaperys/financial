@@ -19,7 +19,6 @@ use PHPUnit\Framework\TestCase;
  */
 class FinancialTest extends TestCase
 {
-
     const DUMMY_MTI           = '0200';
     const DUMMY_PAN           = '1029384756193749';
     const DUMMY_HEADER_LENGTH = 2;
@@ -27,11 +26,7 @@ class FinancialTest extends TestCase
     /** @test */
     public function pack()
     {
-        $cacheManager = new CacheManager(
-            [
-                'cacheDirectory' => '../fixtures/schema.json'
-            ]
-        );
+        $cacheManager = new CacheManager();
 
         /** @var ISO8583 $schemaManager */
         $schemaManager = new SchemaManager(new ISO8583(), $cacheManager);
@@ -56,11 +51,7 @@ class FinancialTest extends TestCase
     /** @test */
     public function unpack()
     {
-        $cacheManager = new CacheManager(
-            [
-                'cacheDirectory' => '../fixtures/schema.json'
-            ]
-        );
+        $cacheManager = new CacheManager();
 
         /** @var ISO8583 $schemaManager */
         $schemaManager = new SchemaManager(new ISO8583(), $cacheManager);

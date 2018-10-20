@@ -3,9 +3,9 @@
 namespace Kaperys\Financial\Cache;
 
 use Kaperys\Financial\Cache\Exception\CacheConfigurationException;
+use Kaperys\Financial\Cache\Exception\CacheFileNotFoundException;
 use Kaperys\Financial\Cache\Exception\CacheWriterException;
 use Kaperys\Financial\Message\Schema\MessageSchemaInterface;
-use Kaperys\Financial\Cache\Exception\CacheFileNotFoundException;
 use ReflectionClass;
 use zpt\anno\Annotations;
 
@@ -18,7 +18,6 @@ use zpt\anno\Annotations;
  */
 class CacheManager
 {
-
     // The message schema cache file name
     const CACHED_SCHEMA_FILE_NAME = 'schema.json';
 
@@ -58,10 +57,16 @@ class CacheManager
             $schemaPropertyAnnotations[] = $propertyAnnotations;
         }
 
-        $cachePath = $this->getConfiguration('cacheDirectory') . DIRECTORY_SEPARATOR .
-            $schemaClass->getName() . DIRECTORY_SEPARATOR . self::CACHED_SCHEMA_FILE_NAME;
+        $cachePath = $this->getConfiguration('cacheDirectory') . DIRECTORY_SEPARATOR . $schemaClass->getName();
 
-        if (!file_put_contents($cachePath, json_encode($schemaPropertyAnnotations))) {
+        if (!is_dir($cachePath)) {
+            mkdir($cachePath, 0777, true);
+        }
+
+        if (!file_put_contents(
+            $cachePath . DIRECTORY_SEPARATOR . self::CACHED_SCHEMA_FILE_NAME,
+            json_encode($schemaPropertyAnnotations)
+        )) {
             throw new CacheWriterException('Cannot write cache file: ' . $cachePath);
         }
 
@@ -100,7 +105,7 @@ class CacheManager
      */
     protected function setConfiguration(array $configuration)
     {
-        $this->config = array_merge($configuration, $this->config);
+        $this->config = array_merge($this->config, $configuration);
     }
 
     /**
